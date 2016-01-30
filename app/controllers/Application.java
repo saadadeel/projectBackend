@@ -83,15 +83,17 @@ public class Application extends Controller {
 //                writer.close();
 //            }
 
-//        MongoClient mongoClient = new MongoClient("localhost", 27017);
+        MongoClient mongoClient = new MongoClient("localhost", 4800);
 //        MongoDatabase dbC = mongoClient.getDatabase("db");
-        //dbC.getCollection("users");
+//        dbC.getCollection("users");
 
-        DB dbc = new MongoClient().getDB("competifitDB");
+        DB dbc = (DB) mongoClient.getDatabase("db");
         Jongo jongo = new Jongo(dbc);
 
           MongoCollection users = jongo.getCollection("users");
-          user one = users.findOne("{'First Name': 'Saad'}").as(user.class);
+//          user one = users.findOne("{'First Name': 'Saad'}").as(user.class);
+        user tester = new user("saad", "habhbk");
+        users.save(tester);
 
         return ok(Json.toJson("yeaaa!!!!!"));
     }
