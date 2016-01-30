@@ -113,7 +113,7 @@ public class Application extends Controller {
            Jongo jongo = new Jongo(db);
 
            MongoCollection users = jongo.getCollection("users");
-//            users.insert("{username: 'saaaaaaad', name: 'saadadeel'}");
+           users.insert("{username: 'saaaaaaad', name: 'saadadeel'}");
 //
 //        user one = users.findOne("{'name': 'saadadeel'}").as(user.class);
 
