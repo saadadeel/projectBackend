@@ -44,6 +44,7 @@ public class Application extends Controller {
 
             MongoCollection users = jongo.getCollection("users");
 //        user one = users.findOne("{'First Name': 'Saad'}").as(user.class);
+        user tester = new user("saad", "habhbk");
 
         return ok(Json.toJson("Yesssss"));
     }
@@ -88,8 +89,8 @@ public class Application extends Controller {
         DB dbc = new MongoClient().getDB("competifitDB");
         Jongo jongo = new Jongo(dbc);
 
-//        MongoCollection users = jongo.getCollection("users");
-//        user one = users.findOne("{'First Name': 'Saad'}").as(user.class);
+          MongoCollection users = jongo.getCollection("users");
+          user one = users.findOne("{'First Name': 'Saad'}").as(user.class);
 
         return ok(Json.toJson("yeaaaaa!!!!!"));
     }
