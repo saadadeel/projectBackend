@@ -39,14 +39,13 @@ public class Application extends Controller {
     }
 
     public Result mongoTest() throws ParseException, IOException {
-        DB db = new MongoClient().getDB("tt");
+        DB db = new MongoClient().getDB("competifit");
         Jongo jongo = new Jongo(db);
 
-            MongoCollection users = jongo.getCollection("users");
-       //user one = users.findOne("{'name': 'saad'}").as(user.class);
+        MongoCollection users = jongo.getCollection("users");
+//       user one = users.findOne("{'name': 'saad'}").as(user.class);
           user tester = new user("saad", "habhbk");
-        users.insert("{name: 'Joe', username: 18}");
-        //users.save(tester);
+            users.save(tester);
 
         return ok(Json.toJson("yessssss"));
     }
