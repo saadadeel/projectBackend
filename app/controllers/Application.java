@@ -117,6 +117,4 @@ public class Application extends Controller {
 
         return ok(Json.toJson(one));
     }
-
-
 }
