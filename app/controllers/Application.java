@@ -109,8 +109,8 @@ public class Application extends Controller {
 //        MongoDatabase dbC = mongoClient.getDatabase("db");
         //dbC.getCollection("users");
 
-        DB db = new MongoClient().getDB("competifitDB");
-        Jongo jongo = new Jongo(db);
+        DB dbc = new MongoClient().getDB("competifitDB");
+        Jongo jongo = new Jongo(dbc);
 
         MongoCollection users = jongo.getCollection("users");
         user one = users.findOne("{'First Name': 'Saad'}").as(user.class);
