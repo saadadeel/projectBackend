@@ -13,3 +13,6 @@ GET     /saad                           controllers.Application.saad()
 
 # Mongotest
 GET     /mongoTest                           controllers.Application.mongoTest()
+
+# servertest
+GET     /serverTest                           controllers.Application.serverTest()
