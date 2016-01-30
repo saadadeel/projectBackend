@@ -47,7 +47,7 @@ public class Application extends Controller {
           user tester = new user("saad", "habhbk");
             users.save(tester);
 
-        return ok(Json.toJson("yessssss"));
+        return ok(Json.toJson("yessss"));
     }
 
     public Result serverTest() throws ParseException, IOException {
