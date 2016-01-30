@@ -21,7 +21,7 @@ public class user{
         this.username = un;
     }
     public user(){
-        DB db = new MongoClient().getDB("test");
+        DB db = new MongoClient().getDB("competifitDB");
         Jongo jongo = new Jongo(db);
 
         MongoCollection users = jongo.getCollection("users");
