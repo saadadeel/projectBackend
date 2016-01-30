@@ -72,7 +72,7 @@ public class Application extends Controller {
         return ok(Json.toJson(one));
     }
 
-    public void test() throws ParseException, IOException {
+    public Result serverTest() throws ParseException, IOException {
 //        MongoClient mongoClient = new MongoClient("localhost", 27017);
 //        MongoDatabase db = mongoClient.getDatabase("test");
 //        addData(db);
@@ -105,11 +105,20 @@ public class Application extends Controller {
 //                writer.close();
 //            }
 
-        DB db = new MongoClient().getDB("test");
+        MongoClient mongoClient = new MongoClient("localhost", 27017);
+        MongoDatabase dbC = mongoClient.getDatabase("db");
+        dbC.createCollection("users");
+        mongoClient.close();
+
+        DB db = new MongoClient().getDB("db");
         Jongo jongo = new Jongo(db);
 
         MongoCollection users = jongo.getCollection("users");
-        user one = users.findOne("{'First Name': 'Saad'}").as(user.class);
+        users.insert("{username: 'saaaaaaad', name: 'saad'}");
+
+        user one = users.findOne("{'name': 'saad'}").as(user.class);
+
+        return ok(Json.toJson(one));
     }
 
 
