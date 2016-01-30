@@ -105,17 +105,17 @@ public class Application extends Controller {
 //                writer.close();
 //            }
 
-        MongoClient mongoClient = new MongoClient("localhost", 27017);
-        MongoDatabase dbC = mongoClient.getDatabase("db");
+//        MongoClient mongoClient = new MongoClient("localhost", 27017);
+//        MongoDatabase dbC = mongoClient.getDatabase("db");
         //dbC.getCollection("users");
 
-//        DB db = new MongoClient().getDB("competifit");
-            Jongo jongo = new Jongo((DB) dbC);
-//
+           DB db = new MongoClient().getDB("db");
+            Jongo jongo = new Jongo(db);
+
            MongoCollection users = jongo.getCollection("users");
-            users.insert("{username: 'saaaaaaad', name: 'saad'}");
-//
-        user one = users.findOne("{'name': 'saad'}").as(user.class);
+            users.insert("{username: 'saaaaaaad', name: 'saadadeel'}");
+
+        user one = users.findOne("{'name': 'saadadeel'}").as(user.class);
 
         return ok(Json.toJson("yesss"));
     }
