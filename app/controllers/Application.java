@@ -45,6 +45,7 @@ public class Application extends Controller {
             MongoCollection users = jongo.getCollection("users");
        //user one = users.findOne("{'name': 'saad'}").as(user.class);
           user tester = new user("saad", "habhbk");
+        users.insert("{name: 'Joe', username: 18}");
         //users.save(tester);
 
         return ok(Json.toJson("yessssss"));
