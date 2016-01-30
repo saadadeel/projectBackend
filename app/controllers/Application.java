@@ -110,7 +110,7 @@ public class Application extends Controller {
         dbC.getCollection("users");
 
            DB db = new MongoClient().getDB("db");
-//            Jongo jongo = new Jongo(db);
+           Jongo jongo = new Jongo(db);
 //
 //           MongoCollection users = jongo.getCollection("users");
 //            users.insert("{username: 'saaaaaaad', name: 'saadadeel'}");
