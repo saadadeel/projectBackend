@@ -107,17 +107,17 @@ public class Application extends Controller {
 
 //        MongoClient mongoClient = new MongoClient("localhost", 27017);
 //        MongoDatabase dbC = mongoClient.getDatabase("db");
-//        dbC.getCollection("users");
+        //dbC.getCollection("users");
 
            DB db = new MongoClient().getDB("db");
-           Jongo jongo = new Jongo(db);
+            Jongo jongo = new Jongo(db);
 
            MongoCollection users = jongo.getCollection("users");
-           users.insert("{username: 'saaaaaaad', name: 'saadadeel'}");
-//
-//        user one = users.findOne("{'name': 'saadadeel'}").as(user.class);
+            users.insert("{username: 'saaaaaaad', name: 'saad'}");
 
-        return ok(Json.toJson("yesss"));
+        user one = users.findOne("{'name': 'saad'}").as(user.class);
+
+        return ok(Json.toJson(one));
     }
 
 

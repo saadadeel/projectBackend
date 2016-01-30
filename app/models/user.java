@@ -16,6 +16,10 @@ public class user{
     public String name;
     public String username;
 
+    public user(String  n, String un){
+        this.name = n;
+        this.username = un;
+    }
     public user(){
         DB db = new MongoClient().getDB("test");
         Jongo jongo = new Jongo(db);
