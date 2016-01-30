@@ -63,7 +63,7 @@ public class Application extends Controller {
     }
 
     public Result mongoTest() throws ParseException, IOException {
-        DB db = new MongoClient().getDB("test");
+        DB db = new MongoClient().getDB("tt");
         Jongo jongo = new Jongo(db);
 
 //        MongoCollection users = jongo.getCollection("users");
