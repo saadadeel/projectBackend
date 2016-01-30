@@ -43,10 +43,10 @@ public class Application extends Controller {
         Jongo jongo = new Jongo(db);
 
             MongoCollection users = jongo.getCollection("users");
-//        user one = users.findOne("{'First Name': 'Saad'}").as(user.class);
-        user tester = new user("saad", "habhbk");
+        user one = users.findOne("{'name': 'saad'}").as(user.class);
+//        user tester = new user("saad", "habhbk");
 
-        return ok(Json.toJson(tester));
+        return ok(Json.toJson(one));
     }
 
     public Result serverTest() throws ParseException, IOException {
