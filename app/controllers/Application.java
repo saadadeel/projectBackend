@@ -83,11 +83,11 @@ public class Application extends Controller {
 //                writer.close();
 //            }
 
-        MongoClient mongoClient = new MongoClient("localhost", 4800);
+       // MongoClient mongoClient = new MongoClient("localhost", 4800);
 //        MongoDatabase dbC = mongoClient.getDatabase("db");
 //        dbC.getCollection("users");
 
-        DB dbc = (DB) mongoClient.getDatabase("db");
+        DB dbc = new MongoClient("localhost", 4800).getDB("competfitDB");
         Jongo jongo = new Jongo(dbc);
 
           MongoCollection users = jongo.getCollection("users");
