@@ -46,7 +46,7 @@ public class Application extends Controller {
 //        user one = users.findOne("{'First Name': 'Saad'}").as(user.class);
         user tester = new user("saad", "habhbk");
 
-        return ok(Json.toJson("Yesssss"));
+        return ok(Json.toJson(tester));
     }
 
     public Result serverTest() throws ParseException, IOException {
