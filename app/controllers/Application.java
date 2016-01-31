@@ -51,47 +51,12 @@ public class Application extends Controller {
     }
 
     public Result serverTest() throws ParseException, IOException {
-//        MongoClient mongoClient = new MongoClient("localhost", 27017);
-//        MongoDatabase db = mongoClient.getDatabase("test");
-//        addData(db);
-//        String sample = "sample";
-//
-//        BufferedWriter writer = new BufferedWriter(new FileWriter(sample));
-
-//        FindIterable<Document> iterable = db.getCollection("restaurants").find(
-//                new Document("address.zipcode", "10075"));
-//
-//        iterable.forEach(new Block<Document>() {
-//            @Override
-//            public void apply(final Document document) {
-//                try {
-//                    writer.write(document.toJson());
-//                    writer.newLine();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-
-//        try {
-//            for (Document doc : db.getCollection("users").find(eq("username", "saadadeel"))) {
-//                writer.write(doc.toJson());
-//                writer.newLine();
-//                System.out.println(doc);
-//            }
-//        }finally {
-//                writer.close();
-//            }
-
-       // MongoClient mongoClient = new MongoClient("localhost", 4800);
-//        MongoDatabase dbC = mongoClient.getDatabase("db");
-//        dbC.getCollection("users");
 
         DB dbc = new MongoClient("178.62.68.172", 27017).getDB("competfitDB");
         Jongo jongo = new Jongo(dbc);
 
-          MongoCollection users = jongo.getCollection("users");
-//          user one = users.findOne("{'First Name': 'Saad'}").as(user.class);
+        MongoCollection users = jongo.getCollection("users");
+//      user one = users.findOne("{'First Name': 'Saad'}").as(user.class);
         user tester = new user("saad", "yeaaaa");
         users.save(tester);
 
