@@ -87,12 +87,12 @@ public class Application extends Controller {
 //        MongoDatabase dbC = mongoClient.getDatabase("db");
 //        dbC.getCollection("users");
 
-        DB dbc = new MongoClient("localhost", 27017).getDB("competfit");
+        DB dbc = new MongoClient("178.62.68.172", 27017).getDB("competfitDB");
         Jongo jongo = new Jongo(dbc);
 
           MongoCollection users = jongo.getCollection("users");
 //          user one = users.findOne("{'First Name': 'Saad'}").as(user.class);
-        user tester = new user("saad", "habhbk");
+        user tester = new user("saad", "yeaaaa");
         users.save(tester);
 
         return ok(Json.toJson("yeaaa!!!!!"));
