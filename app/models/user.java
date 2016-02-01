@@ -14,12 +14,12 @@ public class user{
 
     private long key;
     public String name;
-    public String username;
+    public String userName;
 
     public user(String  n, String un){
         this.name = n;
-        this.username = un;
+        this.userName = un;
     }
-    public user(){
+    public user(String firstName, String lastName, String userName){
     }
 }
