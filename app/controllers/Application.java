@@ -60,6 +60,6 @@ public class Application extends Controller {
         user tester = new user("saad", "yeaaaa");
         users.save(tester);
 
-        return ok(Json.toJson("yeaaa!!!!!"));
+        return ok(Json.toJson(tester));
     }
 }
