@@ -16,3 +16,6 @@ GET     /mongoTest                           controllers.Application.mongoTest()
 
 # servertest
 GET     /serverTest                           controllers.Application.serverTest()
+
+# User requests Authentication and Authorization to access the information of the user
+POST    /login/submit                   controllers.Security.Authenticate()

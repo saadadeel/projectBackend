@@ -56,10 +56,10 @@ public class Application extends Controller {
         Jongo jongo = new Jongo(dbc);
 
         MongoCollection users = jongo.getCollection("users");
-//      user one = users.findOne("{'First Name': 'Saad'}").as(user.class);
+        user one = users.findOne("{'First Name': 'Saad'}").as(user.class);
         user tester = new user("saad", "yeaaaa");
         users.save(tester);
 
-        return ok(Json.toJson(tester));
+        return ok(Json.toJson(one));
     }
 }
