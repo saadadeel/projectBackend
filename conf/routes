@@ -21,4 +21,4 @@ GET     /serverTest                           controllers.Application.serverTest
 POST    /login/submit                   controllers.Security.Authenticate()
 
 # secTest
-GET     /login/test                           controllers.Application.serverTest()
+GET     /login/test                           controllers.Security.test()
