@@ -35,4 +35,18 @@ public class Security extends Controller {
             }
         }
     }
+
+    public Result test(){
+        DB dbc = new MongoClient("178.62.68.172", 27017).getDB("competifitDB");
+        Jongo jongo = new Jongo(dbc);
+
+        MongoCollection users = jongo.getCollection("users");
+        user one = users.findOne("{'username':'" + "saadadeel" + "'}").as(user.class);
+
+        if(one.getPassword().equals("hello")) {
+            return ok("Hello");
+        } else {
+            return status(0001, "username password do not match");
+        }
+    }
 }
