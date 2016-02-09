@@ -13,13 +13,19 @@ import org.jongo.MongoCollection;
 public class user{
 
     private long key;
-    public String name;
-    public String userName;
 
-    public user(String  n, String un){
-        this.name = n;
-        this.userName = un;
+    public String firstName;
+    public String lastName;
+    public String username;
+    public String password;
+
+
+    public user(String fn, String un, String ln, String pw){
+        this.firstName = fn;
+        this.username = un;
+        this.lastName = ln;
+        this.password = pw;
     }
-    public user(String firstName, String lastName, String userName){
-    }
+
+    public String getPassword(){return this.password;}
 }

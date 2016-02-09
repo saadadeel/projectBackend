@@ -1,6 +1,11 @@
 package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.mongodb.DB;
+import com.mongodb.MongoClient;
+import models.user;
+import org.jongo.Jongo;
+import org.jongo.MongoCollection;
 import play.mvc.*;
 import views.html.index;
 
@@ -16,8 +21,15 @@ public class Security extends Controller {
         } else {
             String username = json.findPath("username").toString();
             String password = json.findPath("password").toString();
-            if(username == null) {
-                return badRequest("Missing parameter [name]");
+
+            DB dbc = new MongoClient("178.62.68.172", 27017).getDB("competifitDB");
+            Jongo jongo = new Jongo(dbc);
+
+            MongoCollection users = jongo.getCollection("users");
+            user one = users.findOne("{'username':'" + username + "'}").as(user.class);
+
+            if(one.getPassword()!=password) {
+                return status(0001, "username password do not match");
             } else {
                 return ok("Hello " + username);
             }

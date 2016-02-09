@@ -44,10 +44,10 @@ public class Application extends Controller {
 
         MongoCollection users = jongo.getCollection("users");
         //user one = users.findOne("{'name': 'saad'}").as(user.class);
-        user tester = new user("saad", "habhbk");
-        users.save(tester);
+        //user tester = new user("saad", "habhbk");
+        //users.save(tester);
 
-        return ok(Json.toJson(tester));
+        return ok(Json.toJson("yes"));
     }
 
     public Result serverTest() throws ParseException, IOException {
@@ -57,7 +57,7 @@ public class Application extends Controller {
 
         MongoCollection users = jongo.getCollection("users");
         //user one = users.findOne("{'First Name': 'Saad'}").as(user.class);
-        user tester = new user("saad", "yes");
+        user tester = new user("Saadinho", "sadadadad", "Adeel", "password");
         users.save(tester);
 
         return ok(Json.toJson(tester));
