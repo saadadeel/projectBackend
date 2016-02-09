@@ -19,6 +19,7 @@ public class user{
     public String username;
     public String password;
 
+    public user(){}
 
     public user(String fn, String un, String ln, String pw){
         this.firstName = fn;
