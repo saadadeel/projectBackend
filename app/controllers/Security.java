@@ -19,14 +19,14 @@ public class Security extends Controller {
         if(json == null) {
             return badRequest("Expecting Json data");
         } else {
-//            String username = json.findPath("username").toString();
-//            String password = json.findPath("password").toString();
-//
-//            DB dbc = new MongoClient("178.62.68.172", 27017).getDB("competifitDB");
-//            Jongo jongo = new Jongo(dbc);
-//
-//            MongoCollection users = jongo.getCollection("users");
-//            user one = users.findOne("{'username':" + username + "}").as(user.class);
+            String username = json.findPath("username").toString();
+            String password = json.findPath("password").toString();
+
+            DB dbc = new MongoClient("178.62.68.172", 27017).getDB("competifitDB");
+            Jongo jongo = new Jongo(dbc);
+
+            MongoCollection users = jongo.getCollection("users");
+            user one = users.findOne("{'username':" + username + "}").as(user.class);
 
 //            if(one.getPassword().equals(password)) {
 //                return ok("Hello " + username);
