@@ -34,7 +34,7 @@ public class Security extends Controller {
 //                return badRequest("username password do not match" + one.getPassword() + " " + one.getFirstName());
 //            }
 
-            return ok("Hello ");
+            return ok("Hello " + one.getPassword());
         }
     }
 
