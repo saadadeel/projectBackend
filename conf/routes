@@ -25,4 +25,4 @@ GET     /login/test                           controllers.Security.test()
 
 # User
 
-GET     /user/details:un                          controllers.Application.userDetails(un)
+GET     /user/details/:un                          controllers.Application.userDetails(un)
