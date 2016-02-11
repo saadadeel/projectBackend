@@ -22,3 +22,7 @@ POST    /login/submit                   controllers.Security.Authenticate()
 
 # secTest
 GET     /login/test                           controllers.Security.test()
+
+# User
+
+GET     /user/details:un                          controllers.Application.userDetails(un)

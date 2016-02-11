@@ -28,10 +28,11 @@ public class Security extends Controller {
             MongoCollection users = jongo.getCollection("users");
             user one = users.findOne("{'username':" + username + "}").as(user.class);
 
-            password = password.substring(1, password.length()-1);
+            //password = password.substring(1, password.length()-1);
+            password = password.replaceAll("^\"|\"$", "");
 
             if(one.getPassword().equals(password)) {
-                return ok("Hello " + username);
+                return ok("Hello " + username + password);
             } else {
                 return ok("username password do not match" + one.getPassword() + " " + one.getFirstName() + " " + password);
             }

@@ -62,4 +62,16 @@ public class Application extends Controller {
 
         return ok(Json.toJson(tester));
     }
+
+    public Result userDetails(String uName) throws ParseException, IOException {
+        DB db = new MongoClient("178.62.68.172", 27017).getDB("competifit");
+        Jongo jongo = new Jongo(db);
+
+        MongoCollection users = jongo.getCollection("users");
+        //user one = users.findOne("{'name': 'saad'}").as(user.class);
+        //user tester = new user("saad", "habhbk");
+        //users.save(tester);
+
+        return ok(Json.toJson("yes"));
+    }
 }
