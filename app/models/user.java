@@ -30,4 +30,5 @@ public class user{
 
     public String getPassword(){return this.password;}
     public String getFirstName(){return this.firstName;}
+    public String getUsername(){return this.username;}
 }

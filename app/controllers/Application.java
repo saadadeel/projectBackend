@@ -70,6 +70,6 @@ public class Application extends Controller {
         MongoCollection users = jongo.getCollection("users");
         user one = users.findOne("{'username':" + uName + "}").as(user.class);
 
-        return ok(Json.toJson(one));
+        return ok(Json.toJson(one.getUsername() + uName));
     }
 }
