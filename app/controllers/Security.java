@@ -6,6 +6,7 @@ import com.mongodb.MongoClient;
 import models.user;
 import org.jongo.Jongo;
 import org.jongo.MongoCollection;
+import play.libs.Json;
 import play.mvc.*;
 import views.html.index;
 
@@ -49,7 +50,7 @@ public class Security extends Controller {
         user one = users.findOne("{'username':'saadadeel'}").as(user.class);
 
         if(one.getPassword().equals("hello")) {
-            return ok("Hello");
+            return ok(Json.toJson(one));
         } else {
             return ok("username password do not match");
         }

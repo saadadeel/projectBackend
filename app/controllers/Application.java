@@ -64,12 +64,15 @@ public class Application extends Controller {
     }
 
     public Result userDetails(String uName) throws ParseException, IOException {
-        DB db = new MongoClient("178.62.68.172", 27017).getDB("competifit");
+        DB db = new MongoClient("178.62.68.172", 27017).getDB("competifitDB");
         Jongo jongo = new Jongo(db);
 
         MongoCollection users = jongo.getCollection("users");
-        user one = users.findOne("{'username':" + uName + "}").as(user.class);
+//        uName = uName.replaceAll("^\"|\"$", "");
+//        uName = uName.substring(1, uName.length()-1);
 
-        return ok(Json.toJson(one.getUsername() + uName));
+        user one = users.findOne("{'username':'" + uName + "'}").as(user.class);
+
+        return ok(Json.toJson(one));
     }
 }
