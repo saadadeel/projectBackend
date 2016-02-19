@@ -15,7 +15,8 @@ libraryDependencies ++= Seq(
 libraryDependencies +=  "org.mongodb" % "mongo-java-driver" % "3.2.0"
 
 libraryDependencies ++= Seq(
-  "org.jongo" % "jongo" % "1.2"
+  "org.jongo" % "jongo" % "1.2",
+  "com.google.code.gson" % "gson" % "2.2.4"
 )
 
 // Play provides two styles of routers, one expects its actions to be injected, the
