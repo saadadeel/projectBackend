@@ -26,3 +26,7 @@ GET     /login/test                           controllers.Security.test()
 # User
 
 GET     /user/details/:un                          controllers.Application.userDetails(un)
+
+# Sign in
+
+POST     /user/signIn                          controllers.Application.signIn()

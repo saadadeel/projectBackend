@@ -1,6 +1,7 @@
 package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.google.gson.Gson;
 import com.mongodb.DB;
 import com.mongodb.client.MongoCursor;
 import models.user;
@@ -74,5 +75,23 @@ public class Application extends Controller {
         user one = users.findOne("{'username':'" + uName + "'}").as(user.class);
 
         return ok(Json.toJson(one));
+    }
+
+
+    public Result signIn() {
+        JsonNode json = request().body().asJson();
+        if(json == null) {
+            return badRequest("Expecting Json data");
+        } else {
+            DB dbc = new MongoClient("178.62.68.172", 27017).getDB("competifitDB");
+            Jongo jongo = new Jongo(dbc);
+            MongoCollection users = jongo.getCollection("users");
+
+            user u = new Gson().fromJson(String.valueOf(json), user.class);
+            users.save(u);
+
+            return ok(Json.toJson(u))
+                    ;
+        }
     }
 }

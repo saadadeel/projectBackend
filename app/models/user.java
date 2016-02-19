@@ -18,6 +18,8 @@ public class user{
     public String lastName;
     public String username;
     public String password;
+    public String[] league;
+    public Races[] races;
 
     public user(){}
 
@@ -31,4 +33,13 @@ public class user{
     public String getPassword(){return this.password;}
     public String getFirstName(){return this.firstName;}
     public String getUsername(){return this.username;}
+
+    class Races{
+        public String[] raceChallenges;
+        public String[] raceHistory;
+
+        public Races(){
+
+        }
+    }
 }
