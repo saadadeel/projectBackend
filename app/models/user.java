@@ -20,6 +20,7 @@ public class user{
     public String password;
     public String[] league;
     public Races[] races;
+    public int userScore;
 
     public user(){}
 

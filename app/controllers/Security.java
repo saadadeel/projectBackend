@@ -10,11 +10,15 @@ import play.libs.Json;
 import play.mvc.*;
 import views.html.index;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
- * Created by saadadeel on 08/02/2016.
- */
+* Created by saadadeel on 08/02/2016.
+*/
 
 public class Security extends Controller {
+
     public Result Authenticate() {
         JsonNode json = request().body().asJson();
         if(json == null) {
@@ -38,7 +42,7 @@ public class Security extends Controller {
                 return ok("username password do not match" + one.getPassword() + " " + one.getFirstName() + " " + password);
             }
 
-//            return ok("Hello " + one.getPassword());
+    //            return ok("Hello " + one.getPassword());
         }
     }
 
@@ -53,6 +57,27 @@ public class Security extends Controller {
             return ok(Json.toJson(one));
         } else {
             return ok("username password do not match");
+        }
+    }
+
+    public Result newAuthenticate(String args){
+
+        String[] params = args.split(",");
+        String username = params[0]+"\"";
+        String password = params[1];
+
+        DB dbc = new MongoClient("178.62.68.172", 27017).getDB("competifitDB");
+        Jongo jongo = new Jongo(dbc);
+
+        MongoCollection users = jongo.getCollection("users");
+        user one = users.findOne("{'username':" + username + "}").as(user.class);
+
+        password = password.replaceAll("^\"|\"$", "");
+
+        if(one.getPassword().equals(password)) {
+            return ok(Json.toJson(one));
+        } else {
+            return ok(username + " " + password);
         }
     }
 }
