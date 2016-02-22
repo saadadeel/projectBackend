@@ -22,7 +22,7 @@ public class user{
     public String[] league;
     @JsonProperty("races")
     public ArrayList<Races> races = new ArrayList<Races>();
-    public ArrayList<Run> runs;
+    public ArrayList<String> runs;
     public int userScore;
     public int userLevel;
     public int averageDistance;
@@ -49,4 +49,8 @@ public class user{
     public void findRace(String id){Races r = new Races();}
     public void setRace(String cUsername){races.add(new Races(cUsername));}
     public ArrayList<Races> getRaces(){return this.races;}
+
+    class Run{
+
+    }
 }

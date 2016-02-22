@@ -70,9 +70,6 @@ public class Application extends Controller {
         Jongo jongo = new Jongo(db);
 
         MongoCollection users = jongo.getCollection("users");
-//        uName = uName.replaceAll("^\"|\"$", "");
-//        uName = uName.substring(1, uName.length()-1);
-
         user one = users.findOne("{'username':'" + uName + "'}").as(user.class);
 
         return ok(Json.toJson(one));
