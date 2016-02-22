@@ -40,8 +40,8 @@ public class user{
     public String getPassword(){return this.password;}
     public String getFirstName(){return this.firstName;}
     public String getUsername(){return this.username;}
-    public int getAverageDistance(){return this.getAverageDistance();}
-    public int getAverageSpeed(){return this.getAverageSpeed();}
+    public int getAverageDistance(){return this.averageDistance;}
+    public int getAverageSpeed(){return this.averageSpeed;}
     public int getUserLevel(){return this.userLevel;}
 
     public void challengeSent(String compUsername){ races.add(new Races(compUsername));}
