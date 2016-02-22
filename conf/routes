@@ -31,3 +31,5 @@ GET     /user/details/:un                          controllers.Application.userD
 
 # Sign in
 POST     /user/signIn                          controllers.Application.signIn()
+
+GET      /testActivities                        controllers.Activities.setRace()

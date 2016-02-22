@@ -58,7 +58,8 @@ public class Application extends Controller {
 
         MongoCollection users = jongo.getCollection("users");
         //user one = users.findOne("{'First Name': 'Saad'}").as(user.class);
-        user tester = new user("Saadinho", "sadadadad", "Adeel", "password");
+        user tester = new user("Adam", "aDriver", "Driver", "password");
+
         users.save(tester);
 
         return ok(Json.toJson(tester));
