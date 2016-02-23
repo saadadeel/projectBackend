@@ -33,3 +33,7 @@ GET     /user/details/:un                          controllers.Application.userD
 POST     /user/signIn                          controllers.Application.signIn()
 
 GET      /testActivities                        controllers.Activities.setRace()
+
+POST    /activity/Run                           controllers.Activities.recordRun()
+
+GET   /activity/test                           controllers.Activities.runTest()

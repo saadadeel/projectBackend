@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import com.mongodb.DB;
 import com.mongodb.MongoClient;
 import models.RaceReferre;
+import models.Run;
 import models.user;
 import org.jongo.Jongo;
 import org.jongo.MongoCollection;
@@ -88,5 +89,44 @@ public class Activities extends Controller {
 
             return ok(Json.toJson("okk"));
         }
+    }
+
+    public Result recordRun(){
+        JsonNode json = request().body().asJson();
+        if(json == null) {
+            return badRequest("Expecting Json data");
+        } else {
+            String username = json.findPath("username").toString();
+            int distance = json.findPath("distance").asInt();
+            int time = json.findPath("time").asInt();
+
+            user one = users.findOne("{'username':" + username + "}").as(user.class);
+            Run run = new Run(distance, time);
+            one.addRun(run);
+            run.setScore(one);
+            one.updateScore();
+
+            one.addRun(run);
+            users.update("{'username':" + username + "}").with(one);
+
+            /////write challenges to users and persist///
+
+            return ok(Json.toJson("okk"));
+        }
+    }
+
+    public Result runTest(){
+
+        user u = new user("Ammar", "amRaufi44", "Raufi", "password");
+        String username = u.getUsername();
+        String cu = "Amman Habib";
+
+        user one = users.findOne("{'username':\"" + username + "\"}").as(user.class);
+        one.setRace(cu);
+
+        users.update("{'username':\"" + username + "\"}").with(one);
+        /////write challenges to users and persist///
+
+        return ok(Json.toJson(one));
     }
 }

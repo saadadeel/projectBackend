@@ -22,7 +22,8 @@ public class user{
     public String[] league;
     @JsonProperty("races")
     public ArrayList<Races> races = new ArrayList<Races>();
-    public ArrayList<String> runs;
+    @JsonProperty("runs")
+    public ArrayList<Run> runs = new ArrayList<Run>();
     public int userScore;
     public int userLevel;
     public int averageDistance;
@@ -50,7 +51,19 @@ public class user{
     public void setRace(String cUsername){races.add(new Races(cUsername));}
     public ArrayList<Races> getRaces(){return this.races;}
 
-    class Run{
-
+    public ArrayList<Run> getRuns(){return this.runs;}
+    public void addRun(Run r){
+        this.runs.add(0, r);
+    }
+    public void updateScore(){
+        int[] runScores;
+        int totalScore = 0;
+        if(this.getRuns()!=null){
+            runScores = new int[this.getRuns().size()];
+            for(int i = 0; i<this.getRuns().size(); i++){
+                totalScore += this.getRuns().get(i).getScore();
+            }
+        }
+        this.userScore = totalScore;
     }
 }
