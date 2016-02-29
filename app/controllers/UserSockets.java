@@ -2,6 +2,7 @@ package controllers;
 
 import akka.actor.ActorSystem;
 import models.UserSocketActor;
+import org.jetbrains.annotations.NotNull;
 import play.mvc.*;
 
 import play.mvc.WebSocket;
@@ -13,7 +14,8 @@ import javax.inject.Inject;
  */
 public class UserSockets extends Controller {
 
-    public WebSocket getUser() {
+    @NotNull
+    public static WebSocket<String> getUser() {
         return WebSocket.withActor(UserSocketActor::props);
     }
 }
