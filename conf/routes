@@ -37,3 +37,5 @@ GET      /testActivities                        controllers.Activities.setRace()
 POST    /activity/Run                           controllers.Activities.recordRun()
 
 GET   /activity/test                           controllers.Activities.runTest()
+
+GET /getUser                                    controllers.UserSockets.getUser()

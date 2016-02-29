@@ -116,13 +116,12 @@ public class Activities extends Controller {
     }
 
     public Result runTest(){
-
         user u = new user("Ammar", "amRaufi44", "Raufi", "password");
         String username = u.getUsername();
-        String cu = "Amman Habib";
+        String cu = "HassanHK";
 
         user one = users.findOne("{'username':\"" + username + "\"}").as(user.class);
-        one.setRace(cu);
+        one.acceptRace(cu);
 
         users.update("{'username':\"" + username + "\"}").with(one);
         /////write challenges to users and persist///

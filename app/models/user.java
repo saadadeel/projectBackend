@@ -49,6 +49,7 @@ public class user{
     public void challengeRecieved(String id, String compUsername){ races.add(new Races(id, compUsername));}
     public void findRace(String id){Races r = new Races();}
     public void setRace(String cUsername){races.add(new Races(cUsername));}
+    public void acceptRace(String cUsername){races.add(new Races("yes",cUsername));}
     public ArrayList<Races> getRaces(){return this.races;}
 
     public ArrayList<Run> getRuns(){return this.runs;}
