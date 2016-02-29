@@ -17,22 +17,36 @@ import javax.inject.Inject;
  */
 public class UserSockets extends Controller {
 
-    @NotNull
     public static WebSocket<String> getUser() {
-//        return WebSocket.withActor(UserSocketActor::props);
-
-//        return WebSocket.withActor(new F.Function<ActorRef, Props>() {
-//            public Props apply(ActorRef out) throws Throwable {
-//                return UserSocketActor.props(out);
-//            }
-//        });
-//    }
-
         return new WebSocket<String>() {
+
+            // Called when the Websocket Handshake is done.
             public void onReady(WebSocket.In<String> in, WebSocket.Out<String> out) {
+
+                // For each event received on the socket,
+                in.onMessage(new F.Callback<String>() {
+                    public void invoke(String event) {
+
+                        // Log events to the console
+                        System.out.println(event);
+
+                    }
+                });
+
+                // When the socket is closed.
+                in.onClose(new F.Callback0() {
+                    public void invoke() {
+
+                        System.out.println("Disconnected");
+
+                    }
+                });
+
+                // Send a single 'Hello!' message
                 out.write("Hello!");
-                out.close();
+
             }
+
         };
     }
 }
