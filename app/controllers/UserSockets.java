@@ -4,7 +4,6 @@ import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
 import models.UserSocketActor;
-import org.jetbrains.annotations.NotNull;
 import play.libs.F;
 import play.mvc.*;
 

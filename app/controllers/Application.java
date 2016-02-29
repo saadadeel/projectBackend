@@ -89,8 +89,7 @@ public class Application extends Controller {
             user u = new Gson().fromJson(String.valueOf(json), user.class);
             users.save(u);
 
-            return ok(Json.toJson(u))
-                    ;
+            return ok(Json.toJson(u));
         }
     }
 
