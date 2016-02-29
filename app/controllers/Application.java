@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.google.gson.Gson;
 import com.mongodb.DB;
 import com.mongodb.client.MongoCursor;
+import models.UserSocketActor;
 import models.user;
 import org.jongo.Jongo;
 import org.jongo.MongoCollection;
@@ -91,5 +92,9 @@ public class Application extends Controller {
             return ok(Json.toJson(u))
                     ;
         }
+    }
+
+    public static WebSocket<String> socket() {
+        return WebSocket.withActor(UserSocketActor::props);
     }
 }
