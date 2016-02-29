@@ -15,27 +15,27 @@ GET     /saad                           controllers.Application.saad()
 GET     /mongoTest                           controllers.Application.mongoTest()
 
 # servertest
-GET     /serverTest                           controllers.Application.serverTest()
+GET     /serverTest                             controllers.Application.serverTest()
 
 # User requests Authentication and Authorization to access the information of the user
-POST    /login/submit                   controllers.Security.Authenticate()
+POST    /login/submit                            controllers.Security.Authenticate()
 
 # User requests Authentication and Authorization to access the information of the user
-GET    /login/submit:args                   controllers.Security.newAuthenticate(args)
+GET    /login/submit:args                       controllers.Security.newAuthenticate(args)
 
 # secTest
-GET     /login/test                           controllers.Security.test()
+GET     /login/test                             controllers.Security.test()
 
 # User
-GET     /user/details/:un                          controllers.Application.userDetails(un)
+GET     /user/details/:un                       controllers.Application.userDetails(un)
 
 # Sign in
-POST     /user/signIn                          controllers.Application.signIn()
+POST     /user/signIn                           controllers.Application.signIn()
 
 GET      /testActivities                        controllers.Activities.setRace()
 
 POST    /activity/Run                           controllers.Activities.recordRun()
 
-GET   /activity/test                           controllers.Activities.runTest()
+GET   /activity/test                            controllers.Activities.runTest()
 
-GET   /socketUser                              controllers.UserSockets.getUser()
+GET   /socketUser                               controllers.UserSockets.getUser()
