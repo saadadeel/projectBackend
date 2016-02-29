@@ -18,7 +18,7 @@ import javax.inject.Inject;
 public class UserSockets extends Controller {
 
     @NotNull
-    public static WebSocket getUser() {
+    public static WebSocket<String> getUser() {
 //        return WebSocket.withActor(UserSocketActor::props);
         return WebSocket.withActor(new F.Function<ActorRef, Props>() {
             public Props apply(ActorRef out) throws Throwable {

@@ -30,6 +30,8 @@ GET     /login/test                             controllers.Security.test()
 GET     /user/details/:un                       controllers.Application.userDetails(un)
 
 # Sign in
+GET     /socketUser                               controllers.UserSockets.getUser()
+
 POST     /user/signIn                           controllers.Application.signIn()
 
 GET      /testActivities                        controllers.Activities.setRace()
@@ -37,5 +39,3 @@ GET      /testActivities                        controllers.Activities.setRace()
 POST    /activity/Run                           controllers.Activities.recordRun()
 
 GET   /activity/test                            controllers.Activities.runTest()
-
-GET   /socketUser                               controllers.UserSockets.getUser()
