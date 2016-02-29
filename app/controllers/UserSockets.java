@@ -1,26 +1,19 @@
 package controllers;
 
-import com.mongodb.DB;
-import com.mongodb.MongoClient;
-import controllers.Actors.UserSocketActor;
-import models.user;
-import org.jongo.Jongo;
-import org.jongo.MongoCollection;
-import play.Logger;
-import play.libs.F;
-import play.libs.Json;
+import akka.actor.ActorSystem;
+import models.UserSocketActor;
 import play.mvc.*;
 
-import akka.actor.*;
-import play.libs.F.*;
 import play.mvc.WebSocket;
+
+import javax.inject.Inject;
 
 /**
  * Created by saadadeel on 29/02/2016.
  */
 public class UserSockets extends Controller {
 
-    public static WebSocket<String> getUser() {
+    public WebSocket getUser() {
         return WebSocket.withActor(UserSocketActor::props);
     }
 }

@@ -1,9 +1,8 @@
-package controllers.Actors;
+package models;
 
 import akka.actor.*;
 import com.mongodb.DB;
 import com.mongodb.MongoClient;
-import models.user;
 import org.jongo.Jongo;
 import org.jongo.MongoCollection;
 import play.libs.Json;
