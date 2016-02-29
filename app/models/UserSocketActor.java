@@ -31,7 +31,11 @@ public class UserSocketActor extends UntypedActor {
             MongoCollection users = jongo.getCollection("users");
             user one = users.findOne("{'username':'" + message + "'}").as(user.class);
 
-            out.tell(Json.toJson(one), self());
+            out.tell("yoo", self());
         }
+    }
+
+    public void setOut(){
+
     }
 }
