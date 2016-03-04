@@ -25,27 +25,27 @@ public class RaceReferre{
     }
 
     public void setChallenge(){
-        int levelDifference = this.challenge.getUserLevel() - this.challenger.getUserLevel();
-        int[] ch = new int[2];
-        int miles = this.challenger.getAverageDistance();;
-        int time = this.challenger.getAverageDistance()/(this.challenger.averageSpeed);
-        int miles1 = this.challenge.getAverageDistance();;
-        int time1 = this.challenge.getAverageDistance()/(this.challenger.averageSpeed);
-
-        if(levelDifference<0){
-            time = time;
-            time1 = time1/levelDifference;
-        }else{
-            time1 = time1;
-            time = time/levelDifference;
-        }
-
-        ch[0] = miles;
-        ch[1] = time;
-        this.challenges.add(ch);
-        ch[0] = miles1;
-        ch[1] = time1;
-        this.challenges.add(ch);
+//        int levelDifference = this.challenge.getUserLevel() - this.challenger.getUserLevel();
+//        Double[] ch = new Double[2];
+//        int miles = this.challenger.getAverageDistance();
+//        Double time = this.challenger.getAverageDistance()/(this.challenger.averageSpeed);
+//        int miles1 = this.challenge.getAverageDistance();;
+//        Double time1 = this.challenge.getAverageDistance()/(this.challenger.averageSpeed);
+//
+//        if(levelDifference<0){
+//            time = time;
+//            time1 = time1/levelDifference;
+//        }else{
+//            time1 = time1;
+//            time = time/levelDifference;
+//        }
+//
+//        ch[0] = miles;
+//        ch[1] = time;
+//        this.challenges.add(ch);
+//        ch[0] = miles1;
+//        ch[1] = time1;
+//        this.challenges.add(ch);
     }
 
     public ArrayList<int[]> getChallenges(){
