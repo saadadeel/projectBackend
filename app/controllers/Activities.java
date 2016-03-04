@@ -64,7 +64,7 @@ public class Activities extends Controller {
 
             /////write challenges to users and persist///
 
-            return ok(Json.toJson(one.getFirstName()));
+            return ok(Json.toJson(compUsername));
         }
     }
 
