@@ -65,6 +65,5 @@ public class RaceReferre{
         Jongo jongo = new Jongo(dbc);
         MongoCollection users = jongo.getCollection("users");
         user user = users.findOne("{'username':" + this.challenger + "}").as(user.class);
-
     }
 }

@@ -56,15 +56,15 @@ public class Activities extends Controller {
             String username = json.findPath("username").toString();
 
             user one = users.findOne("{'username':" + username + "}").as(user.class);
-            user two = users.findOne("{'username':" + compUsername+ "}").as(user.class);
+//            user two = users.findOne("{'username':" + compUsername+ "}").as(user.class);
 
-            RaceReferre referre = new RaceReferre(one, two);
-            referre.setChallenge();
-            ArrayList<int[]> challenges = referre.getChallenges();
+//            RaceReferre referre = new RaceReferre(one, two);
+//            referre.setChallenge();
+//            ArrayList<int[]> challenges = referre.getChallenges();
 
             /////write challenges to users and persist///
 
-            return ok(Json.toJson("okk"));
+            return ok(Json.toJson(one.getFirstName()));
         }
     }
 
@@ -118,7 +118,7 @@ public class Activities extends Controller {
     public Result runTest(){
         user u = new user("Ammar", "amRaufi44", "Raufi", "password");
         String username = u.getUsername();
-        String cu = "HassanHK";
+        String cu = "ShameelahK";
 
         user one = users.findOne("{'username':\"" + username + "\"}").as(user.class);
         one.acceptRace(cu);
