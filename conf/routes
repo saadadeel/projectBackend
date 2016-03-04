@@ -41,5 +41,5 @@ POST    /activity/Run                           @controllers.Activities.recordRu
 GET   /activity/test                            @controllers.Activities.runTest()
 
 # Racing
-
 POST    /activity/acceptRace                    @controllers.Activities.acceptRace()
+

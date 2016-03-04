@@ -67,4 +67,20 @@ public class user{
         }
         this.userScore = totalScore;
     }
+    public void updateAverageDistandSpeed(){
+        int[] runDist;
+        int[] runTime;
+        int totalDist = 0;
+        int totalTime = 0;
+        if(this.getRuns()!=null){
+            runDist = new int[this.getRuns().size()];
+            runTime = new int[this.getRuns().size()];
+            for(int i = 0; i<this.getRuns().size(); i++){
+                totalDist += this.getRuns().get(i).getDistance();
+                totalTime += this.getRuns().get(i).getTime();
+            }
+        }
+        this.averageDistance = totalDist;
+        this.averageSpeed = totalDist/totalTime;
+    }
 }

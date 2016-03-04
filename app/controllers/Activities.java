@@ -92,26 +92,37 @@ public class Activities extends Controller {
     }
 
     public Result recordRun(){
+//        JsonNode json = request().body().asJson();
+//        if(json == null) {
+//            return badRequest("Expecting Json data");
+//        } else {
+//            String username = json.findPath("username").toString();
+//            int distance = json.findPath("distance").asInt();
+//            int time = json.findPath("time").asInt();
+//
+//            user one = users.findOne("{'username':" + username + "}").as(user.class);
+//            Run run = new Run(distance, time);
+//            one.addRun(run);
+//            run.setScore(one);
+//            one.updateScore();
+//
+//            one.addRun(run);
+//            users.update("{'username':" + username + "}").with(one);
+
+            /////write challenges to users and persist///
+
         JsonNode json = request().body().asJson();
         if(json == null) {
             return badRequest("Expecting Json data");
         } else {
-            String username = json.findPath("username").toString();
-            int distance = json.findPath("distance").asInt();
-            int time = json.findPath("time").asInt();
+            DB dbc = new MongoClient("178.62.68.172", 27017).getDB("competifitDB");
+            Jongo jongo = new Jongo(dbc);
+            MongoCollection users = jongo.getCollection("users");
 
-            user one = users.findOne("{'username':" + username + "}").as(user.class);
-            Run run = new Run(distance, time);
-            one.addRun(run);
-            run.setScore(one);
-            one.updateScore();
+            user u = new Gson().fromJson(String.valueOf(json), user.class);
+            users.update("{'username':" + u.getUsername()+ "}").with(u);
 
-            one.addRun(run);
-            users.update("{'username':" + username + "}").with(one);
-
-            /////write challenges to users and persist///
-
-            return ok(Json.toJson("okk"));
+            return ok(Json.toJson("cooool"));
         }
     }
 
