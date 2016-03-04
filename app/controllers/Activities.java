@@ -113,14 +113,14 @@ public class Activities extends Controller {
 
         JsonNode json = request().body().asJson();
         if(json == null) {
-            return badRequest("Expecting Json data");
+            return ok("Expecting Json data");
         } else {
             DB dbc = new MongoClient("178.62.68.172", 27017).getDB("competifitDB");
             Jongo jongo = new Jongo(dbc);
             MongoCollection users = jongo.getCollection("users");
 
             user u = new Gson().fromJson(String.valueOf(json), user.class);
-            users.update("{'username':" + u.getUsername()+ "}").with(u);
+            users.update("{'username':'" + u.getUsername()+ "'}").with(u);
 
             return ok(Json.toJson("cooool"));
         }
