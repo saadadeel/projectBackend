@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class Races {
         public String status;
-        public String result;
         public String id;
         public String competitorUsername;
 
@@ -15,12 +14,16 @@ public class Races {
         public int challengedMiles;
 
         @JsonProperty("challengedTime")
-        public int challengedTime;
+        public Double challengedSpeed;
 
-        public Boolean isChallengeMet;
+        public Boolean isComplete;
+        public int completedMiles;
+        public Double completedSpeed;
 
         @JsonProperty("speedChallengeCompleted")
         public int speedChallengeCompleted;
+        public String result;
+        public int points;
 
         public Races(){}
 
@@ -35,11 +38,25 @@ public class Races {
             this.id = st;
         }
 
-        public void challengeAccepted(int miles, int time){
+        public void challengeAccepted(int miles, Double speed){
             this.status = "active";
             this.challengedMiles = miles;
-            this.challengedTime = time;
+            this.challengedSpeed = speed;
         }
+
+    public String getId(){return this.id;}
+    public void setChallengedMiles(int m){ this.challengedMiles = m;}
+    public void setChallengedSpeed(Double s){ this.challengedSpeed = s;}
+    public void setPoints(int p){this.points = p;}
+    public int getPoints(){return this.points;}
+    public void isWinner(Boolean result){
+        if(result){
+            this.result = "winner";
+        }else{
+            this.result = "loser";
+        }
+    }
+
 //
 //        public void challengeCompleted(int completedMiles, int completedSpeed){
 //            this.status = "complete";

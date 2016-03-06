@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import com.mongodb.DB;
 import com.mongodb.MongoClient;
 import models.RaceReferre;
+import models.Races;
 import models.Run;
 import models.user;
 import org.jongo.Jongo;
@@ -24,6 +25,33 @@ public class Activities extends Controller {
     Jongo jongo = new Jongo(dbc);
     MongoCollection users = jongo.getCollection("users");
 
+    public Result acceptAndCompleteRace(){
+        JsonNode json = request().body().asJson();
+        if(json == null) {
+            return badRequest("Expecting Json data");
+        } else {
+            Races oneRace = new Gson().fromJson(String.valueOf(json), Races.class);
+
+            String id= oneRace.getId();
+            String compUsername = oneRace.competitorUsername;
+
+            user two = users.findOne("{'username':" + oneRace.competitorUsername + "}").as(user.class);
+            Races twoRace = two.findRace(id);
+
+            user one = users.findOne("{'username':" + twoRace.competitorUsername + "}").as(user.class);
+
+            if(twoRace.isComplete!=false){
+                RaceReferre wow = new RaceReferre(one, two);
+                wow.challengeComplete(oneRace,twoRace);
+                users.update("{'username':" + one.getUsername() + "}").with(wow.getChallenger());
+                users.update("{'username':" + two.getUsername() + "}").with(wow.getChallenge());
+            }else{
+                users.update("{'username':" + one.getUsername() + "}").with(one);
+            }
+            return ok(Json.toJson(one));
+        }
+    }
+
     public Result setRace(){
         JsonNode json = request().body().asJson();
         if(json == null) {
@@ -34,37 +62,30 @@ public class Activities extends Controller {
             String username = json.findPath("username").toString();
 
             user one = users.findOne("{'username':" + username + "}").as(user.class);
-            one.setRace(compUsername);
-            users.update("{'username':" + username + "}").with(one);
-
             user two = users.findOne("{'username':" + compUsername+ "}").as(user.class);
-            two.challengeRecieved(id, username);
-            users.update("{'username':" + compUsername+ "}").with(two);
 
+            RaceReferre referre = new RaceReferre(one,two);
+            referre.setChallenge();
 
-            return ok(Json.toJson("okk"));
-            }
-    }
+            Races challenged = new Races(id, username);
+            challenged.setChallengedMiles(referre.getChallengedMiles());
+            challenged.setChallengedSpeed(referre.getChallengedSpeed());
+            challenged.setPoints(referre.getChallengedPoints());
 
-    public Result acceptRace(){
-        JsonNode json = request().body().asJson();
-        if(json == null) {
-            return badRequest("Expecting Json data");
-        } else {
-            String id= json.findPath("id").toString();
-            String compUsername = json.findPath("compUsername").toString();
-            String username = json.findPath("username").toString();
+            two.addRace(challenged);
+            users.update("{'username':'" + two.getUsername() + "'}").with(two);
 
-            user one = users.findOne("{'username':" + username + "}").as(user.class);
-//            user two = users.findOne("{'username':" + compUsername+ "}").as(user.class);
+            Races challenger = new Races(compUsername);
+            challenger.setChallengedMiles(referre.getChallengerMiles());
+            challenger.setChallengedSpeed(referre.getChallengerSpeed());
+            challenger.setPoints(referre.getChallengerPoints());
 
-//            RaceReferre referre = new RaceReferre(one, two);
-//            referre.setChallenge();
-//            ArrayList<int[]> challenges = referre.getChallenges();
+            one.addRace(challenger);
+            users.update("{'username':'" + two.getUsername() + "'}").with(one);
 
             /////write challenges to users and persist///
 
-            return ok(Json.toJson(compUsername));
+            return ok(Json.toJson(one));
         }
     }
 
@@ -83,7 +104,6 @@ public class Activities extends Controller {
 
             RaceReferre referre = new RaceReferre(one, two);
             referre.setChallenge();
-            ArrayList<int[]> challenges = referre.getChallenges();
 
             /////write challenges to users and persist///
 
@@ -100,7 +120,7 @@ public class Activities extends Controller {
 //            int distance = json.findPath("distance").asInt();
 //            int time = json.findPath("time").asInt();
 //
-//            user one = users.findOne("{'username':" + username + "}").as(user.class);
+//            user one = users.findOne("{'username':" +] username + "}").as(user.class);
 //            Run run = new Run(distance, time);
 //            one.addRun(run);
 //            run.setScore(one);

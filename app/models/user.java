@@ -46,11 +46,29 @@ public class user{
     public int getUserLevel(){return this.userLevel;}
 
     public void challengeSent(String compUsername){ races.add(new Races(compUsername));}
-    public void challengeRecieved(String id, String compUsername){ races.add(new Races(id, compUsername));}
-    public void findRace(String id){Races r = new Races();}
+//    public void challengeRecieved(String id, String compUsername){ races.add(new Races(id, compUsername));}
+    public Races findRace(String id){
+        for (Races race : this.races) {
+            if (race.getId() == id) {
+                return race; //gotcha!
+            }
+        }
+        return null; // dog not found.
+    }
     public void setRace(String cUsername){races.add(new Races(cUsername));}
     public void acceptRace(String cUsername){races.add(new Races("yes",cUsername));}
     public ArrayList<Races> getRaces(){return this.races;}
+
+    public void addRace(Races races){
+        this.races.add(0, races);
+    }
+    public void updateRaces(Races race){
+        for (Races r : this.races) {
+            if (race.getId() == r.id) {
+                this.races.set(this.races.indexOf(r), race);
+            }
+        }
+    }
 
     public ArrayList<Run> getRuns(){return this.runs;}
     public void addRun(Run r){
@@ -66,6 +84,9 @@ public class user{
             }
         }
         this.userScore = totalScore;
+    }
+    public void addScore(int score){
+        this.userScore+= score;
     }
 //    public void updateAverageDistandSpeed(){
 //        int[] runDist;

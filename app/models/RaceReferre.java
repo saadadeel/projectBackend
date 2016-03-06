@@ -16,6 +16,12 @@ public class RaceReferre{
     String id;
     user challenger;
     user challenge;
+    Double challengerSpeed = 0.0;
+    Double challengeeSpeed = 0.0;
+    int challengerMiles = 0;
+    int challengeeMiles = 0;
+    int challengerPoints = 0;
+    int challengedPoints = 0;
 
     ArrayList<int[]> challenges = new ArrayList<int[]>();
 
@@ -25,32 +31,62 @@ public class RaceReferre{
     }
 
     public void setChallenge(){
-//        int levelDifference = this.challenge.getUserLevel() - this.challenger.getUserLevel();
-//        Double[] ch = new Double[2];
-//        int miles = this.challenger.getAverageDistance();
-//        Double time = this.challenger.getAverageDistance()/(this.challenger.averageSpeed);
-//        int miles1 = this.challenge.getAverageDistance();;
-//        Double time1 = this.challenge.getAverageDistance()/(this.challenger.averageSpeed);
-//
-//        if(levelDifference<0){
-//            time = time;
-//            time1 = time1/levelDifference;
-//        }else{
-//            time1 = time1;
-//            time = time/levelDifference;
-//        }
-//
-//        ch[0] = miles;
-//        ch[1] = time;
-//        this.challenges.add(ch);
-//        ch[0] = miles1;
-//        ch[1] = time1;
-//        this.challenges.add(ch);
+        int levelDifference = this.challenge.getUserLevel() - this.challenger.getUserLevel();
+
+        int miles = this.challenger.getAverageDistance();
+        Double speed = this.challenger.averageSpeed;
+        int miles1 = this.challenge.getAverageDistance();
+        Double speed1 = this.challenger.averageSpeed;
+
+        if(this.challenge.getUserLevel()<this.challenger.getUserLevel()){
+            this.challengerSpeed = speed * 1.2;
+            this.challengeeSpeed = speed1*(levelDifference*1.5);
+
+            this.challengerPoints = 5;
+            this.challengedPoints = 5 + (levelDifference * 2);
+        }else{
+            this.challengerSpeed = speed/levelDifference;
+            this.challengeeSpeed = speed1 * 1.2;
+
+            this.challengedPoints = 5;
+            this.challengerPoints = 5 + (levelDifference * 2);
+        }
+        this.challengerMiles = this.challenger.getAverageDistance()/2;
+        this.challengeeMiles = this.challenge.getAverageDistance()/2;
     }
 
-    public ArrayList<int[]> getChallenges(){
-        return this.challenges;
+    public void challengeComplete(Races one, Races two){
+        Double oneCS = one.completedSpeed;
+        Double twoCS = two.completedSpeed;
+
+        Double oneSpeedDiff = oneCS - this.challenger.getAverageSpeed();
+        Double twoSpeedDiff = twoCS - this.challenge.getAverageSpeed();
+
+        if(one.isComplete && two.isComplete){
+            if(oneSpeedDiff>twoSpeedDiff){
+                one.isWinner(true);
+                two.isWinner(false);
+                this.challenger.addScore(one.getPoints());
+            }else{
+                two.isWinner(true);
+                one.isWinner(false);
+                this.challenge.addScore(two.getPoints());
+            }
+        }
+        this.challenger.updateRaces(one);
+        this.challenge.updateRaces(two);
     }
+
+    public int getChallengerMiles(){return this.challengerMiles;}
+    public int getChallengedMiles(){return this.challengeeMiles;}
+    public Double getChallengerSpeed(){return this.challengerSpeed;}
+    public Double getChallengedSpeed(){return this.challengeeSpeed;}
+
+    public user getChallenger(){return this.challenger;}
+    public user getChallenge(){return this.challenge;}
+
+    public int getChallengerPoints(){return this.challengerPoints;}
+    public int getChallengedPoints(){return this.challengedPoints;}
 
     public void sendChallenge(){
         DB dbc = new MongoClient("178.62.68.172", 27017).getDB("competifitDB");
