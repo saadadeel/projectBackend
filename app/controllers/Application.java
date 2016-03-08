@@ -97,7 +97,7 @@ public class Application extends Controller {
             return badRequest("Expecting Json data");
         } else {
             user u = new Gson().fromJson(String.valueOf(json), user.class);
-            Level level = levelCollection.findOne("{'level':'" + u.getUserLevel() + "'}").as(Level.class);
+            Level level = levelCollection.findOne("{'level':" + u.getUserLevel() + "}").as(Level.class);
             level.addUsername(u.getUsername());
 
             //////Set up league/////
