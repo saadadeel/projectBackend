@@ -19,11 +19,12 @@ public class user{
     public String lastName;
     public String username;
     public String password;
-    public String[] league;
     @JsonProperty("races")
     public ArrayList<Races> races = new ArrayList<Races>();
     @JsonProperty("runs")
     public ArrayList<Run> runs = new ArrayList<Run>();
+    public ArrayList<minimalUser> league = new ArrayList<minimalUser>();
+    public ArrayList<String> leagueUsernames = new ArrayList<String>();
     public int userScore;
     public int userLevel;
     public int averageDistance;
@@ -36,6 +37,7 @@ public class user{
         this.username = un;
         this.lastName = ln;
         this.password = pw;
+        this.userLevel = 2;
     }
 
     public String getPassword(){return this.password;}
@@ -45,15 +47,16 @@ public class user{
     public Double getAverageSpeed(){return this.averageSpeed;}
     public int getUserLevel(){return this.userLevel;}
 
+    /////Races////////
+
     public void challengeSent(String compUsername){ races.add(new Races(compUsername));}
-//    public void challengeRecieved(String id, String compUsername){ races.add(new Races(id, compUsername));}
     public Races findRace(String id){
         for (Races race : this.races) {
             if (race.getId() == id) {
                 return race; //gotcha!
             }
         }
-        return null; // dog not found.
+        return null;
     }
     public void setRace(String cUsername){races.add(new Races(cUsername));}
     public void acceptRace(String cUsername){races.add(new Races("yes",cUsername));}
@@ -69,6 +72,8 @@ public class user{
             }
         }
     }
+
+    /////Runs////////
 
     public ArrayList<Run> getRuns(){return this.runs;}
     public void addRun(Run r){
@@ -88,20 +93,13 @@ public class user{
     public void addScore(int score){
         this.userScore+= score;
     }
-//    public void updateAverageDistandSpeed(){
-//        int[] runDist;
-//        int[] runTime;
-//        int totalDist = 0;
-//        int totalTime = 0;
-//        if(this.getRuns()!=null){
-//            runDist = new int[this.getRuns().size()];
-//            runTime = new int[this.getRuns().size()];
-//            for(int i = 0; i<this.getRuns().size(); i++){
-//                totalDist += this.getRuns().get(i).getDistance();
-//                totalTime += this.getRuns().get(i).getTime();
-//            }
-//        }
-//        this.averageDistance = totalDist;
-//        this.averageSpeed = totalDist/totalTime;
-//    }
+
+    ///// League /////
+
+    public void setleague(ArrayList<minimalUser> mU){
+        this.league = mU;
+    }
+    public void setLeagueUsernames(ArrayList<String> lu){this.leagueUsernames = lu;}
+    public ArrayList<minimalUser> getLeague(){return this.league;}
+    public ArrayList<String> getLeagueUsernames(){return this.leagueUsernames;}
 }
