@@ -78,10 +78,12 @@ public class Application extends Controller {
         MongoCollection users = jongo.getCollection("users");
         user one = users.findOne("{'username':'" + uName + "'}").as(user.class);
 
-        for(minimalUser m: one.getLeague()){
-            minimalUser mOne = users.findOne("{'username':'" + m.username + "'}").as(minimalUser.class);
+        for(String un: one.getLeagueUsernames()){
+            minimalUser mOne = users.findOne("{'username':'" + un + "'}").as(minimalUser.class);
             league.add(mOne);
         }
+
+        league = one.getLeague();
         Collections.sort(league);
         one.setleague(league);
 
@@ -91,7 +93,8 @@ public class Application extends Controller {
 
     public Result signIn() {
         JsonNode json = request().body().asJson();
-        ArrayList<minimalUser> mU= new ArrayList<minimalUser>();
+//        ArrayList<minimalUser> mU= new ArrayList<minimalUser>();
+        ArrayList<String> randomUsernames = new ArrayList<String>();
 
         if(json == null) {
             return badRequest("Expecting Json data");
@@ -104,33 +107,37 @@ public class Application extends Controller {
 
             if(u.getUserLevel()<=2) {
                 level = levelCollection.findOne("{'level':" + (u.getUserLevel() - 1) + "}").as(Level.class);
-                ArrayList<String> randomUsernames = level.findRandom(6);
+                randomUsernames = level.findRandom(6);
                 for (int i = 0; i < randomUsernames.size(); i++) {
                     String randomU = randomUsernames.get(i);
-                    mU.add(users.findOne("{'username':'" + randomU + "'}").as(minimalUser.class));
+//                    mU.add(users.findOne("{'username':'" + randomU + "'}").as(minimalUser.class));
+                    u.addLeagueUsernames(randomU);
                 }
                 level = levelCollection.findOne("{'level':" + (u.getUserLevel() + 1) + "}").as(Level.class);
                 randomUsernames = level.findRandom(3);
                 for (int i = 0; i < randomUsernames.size(); i++) {
                     String randomU = randomUsernames.get(i);
-                    mU.add(users.findOne("{'username':'" + randomU + "'}").as(minimalUser.class));
+//                    mU.add(users.findOne("{'username':'" + randomU + "'}").as(minimalUser.class));
+                    u.addLeagueUsernames(randomU);
                 }
             }else{
                 level = levelCollection.findOne("{'level':'" + (u.getUserLevel()) + "'}").as(Level.class);
-                ArrayList<String> randomUsernames = level.findRandom(9);
+                randomUsernames = level.findRandom(9);
                 for(int i = 0; i < randomUsernames.size(); i++){
                     String randomU = randomUsernames.get(i);
-                    mU.add(users.findOne("{'username':'" + randomU + "'}").as(minimalUser.class));
+//                    mU.add(users.findOne("{'username':'" + randomU + "'}").as(minimalUser.class));
+                    u.addLeagueUsernames(randomU);
                 }
                 level = levelCollection.findOne("{'level':'" + (u.getUserLevel() + 1) + "'}").as(Level.class);
                 randomUsernames = level.findRandom(3);
                 for(int i = 0; i < randomUsernames.size(); i++){
                     String randomU = randomUsernames.get(i);
-                    mU.add(users.findOne("{'username':'" + randomU + "'}").as(minimalUser.class));
+//                    mU.add(users.findOne("{'username':'" + randomU + "'}").as(minimalUser.class));
+                    u.addLeagueUsernames(randomU);
                 }
             }
-            Collections.sort(mU);
-            u.setleague(mU);
+//            Collections.sort(re);
+//            u.setleague(mU);
             users.save(u);
 
             return ok(Json.toJson(u));

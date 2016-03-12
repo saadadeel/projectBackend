@@ -100,6 +100,7 @@ public class user{
         this.league = mU;
     }
     public void setLeagueUsernames(ArrayList<String> lu){this.leagueUsernames = lu;}
+    public void addLeagueUsernames(String lu){this.leagueUsernames.add(lu);}
     public ArrayList<minimalUser> getLeague(){return this.league;}
     public ArrayList<String> getLeagueUsernames(){return this.leagueUsernames;}
 }
