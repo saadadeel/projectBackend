@@ -78,16 +78,18 @@ public class Application extends Controller {
         MongoCollection users = jongo.getCollection("users");
         user one = users.findOne("{'username':'" + uName + "'}").as(user.class);
         leagueUsernames = one.getLeagueUsernames();
-        for(String un: one.getLeagueUsernames()){
-            minimalUser mOne = users.findOne("{'username':" + un + "}").as(minimalUser.class);
+
+        for(String un: leagueUsernames){
+            minimalUser mOne = users.findOne("{'username':'" + un + "'}").as(minimalUser.class);
             league.add(mOne);
         }
 
-        league = one.getLeague();
         Collections.sort(league);
         one.setleague(league);
 
-        return ok(Json.toJson(leagueUsernames));
+//        users.update("{'username':'" + one.getUsername()+ "'}").with(one);
+
+        return ok(Json.toJson(one));
     }
 
 
