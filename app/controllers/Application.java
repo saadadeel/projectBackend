@@ -77,9 +77,9 @@ public class Application extends Controller {
 
         MongoCollection users = jongo.getCollection("users");
         user one = users.findOne("{'username':'" + uName + "'}").as(user.class);
-
+        leagueUsernames = one.getLeagueUsernames();
         for(String un: one.getLeagueUsernames()){
-            minimalUser mOne = users.findOne("{'username':'" + un + "'}").as(minimalUser.class);
+            minimalUser mOne = users.findOne("{'username':" + un + "}").as(minimalUser.class);
             league.add(mOne);
         }
 
@@ -87,7 +87,7 @@ public class Application extends Controller {
         Collections.sort(league);
         one.setleague(league);
 
-        return ok(Json.toJson(one));
+        return ok(Json.toJson(leagueUsernames));
     }
 
 
@@ -102,6 +102,7 @@ public class Application extends Controller {
             user u = new Gson().fromJson(String.valueOf(json), user.class);
             Level level = levelCollection.findOne("{'level':" + u.getUserLevel() + "}").as(Level.class);
             level.addUsername(u.getUsername());
+            users.save(u);
 
             //////Set up league/////
 
@@ -138,7 +139,8 @@ public class Application extends Controller {
             }
 //            Collections.sort(re);
 //            u.setleague(mU);
-            users.save(u);
+//            users.save(u);
+            users.update("{'username':'" + u.getUsername()+ "'}").with(u);
 
             return ok(Json.toJson(u));
         }
