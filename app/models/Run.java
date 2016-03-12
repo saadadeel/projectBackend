@@ -14,6 +14,7 @@ public class Run {
     public int time;
     public int speed;
     public int score = 3;
+    public String username;
 
     public Run(){}
 
@@ -44,6 +45,10 @@ public class Run {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
         return dateFormat.format(date);
+    }
+
+    public String getUsername(){
+        return this.username;
     }
 
     public void setScore(user user){

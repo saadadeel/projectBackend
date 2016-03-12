@@ -12,15 +12,6 @@ public class minimalUser implements Comparable{
 
     public minimalUser(){}
 
-//    public int compareTo(minimalUser comparestu) {
-//        int score=((minimalUser)comparestu).getUserScore();
-//        /* For Ascending order*/
-////        return this.studentage-compareage;
-//
-//        /* For Descending order do like this */
-//        return score-getUserScore();
-//    }
-
     public int getUserScore(){
         return this.userScore;
     }
@@ -28,10 +19,6 @@ public class minimalUser implements Comparable{
     @Override
     public int compareTo(Object o) {
         int score=((minimalUser) o).getUserScore();
-        /* For Ascending order*/
-//        return this.studentage-compareage;
-
-        /* For Descending order do like this */
         return score-getUserScore();
     }
 }

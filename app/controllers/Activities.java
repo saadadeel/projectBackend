@@ -139,8 +139,10 @@ public class Activities extends Controller {
             Jongo jongo = new Jongo(dbc);
             MongoCollection users = jongo.getCollection("users");
 
-            user u = new Gson().fromJson(String.valueOf(json), user.class);
-            users.update("{'username':'" + u.getUsername()+ "'}").with(u);
+            Run run= new Gson().fromJson(String.valueOf(json), Run.class);
+            user one = users.findOne("{'username':'" + run.getUsername() + "'}").as(user.class);
+            one.addRun(run);
+            users.update("{'username':'" + run.getUsername()+ "'}").with(one);
 
             return ok(Json.toJson("cooool"));
         }
