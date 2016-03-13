@@ -47,5 +47,4 @@ POST    /activity/completeRace                    @controllers.Activities.accept
 
 # testing
 GET /league/test                                       @controllers.Application.addTestUser()
-GET /league/test1                                       @controllers.Application.testLeague()
 

@@ -39,10 +39,8 @@ public class Security extends Controller {
             if(one.getPassword().equals(password)) {
                 return ok("Hello " + username + password);
             } else {
-                return ok("username password do not match" + one.getPassword() + " " + one.getFirstName() + " " + password);
+                return badRequest("username password do not match" + one.getPassword() + " " + one.getFirstName() + " " + password);
             }
-
-    //            return ok("Hello " + one.getPassword());
         }
     }
 
@@ -77,7 +75,7 @@ public class Security extends Controller {
         if(one.getPassword().equals(password)) {
             return ok(Json.toJson(one));
         } else {
-            return ok(username + " " + password);
+            return badRequest("no match");
         }
     }
 }
