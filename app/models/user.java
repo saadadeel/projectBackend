@@ -64,6 +64,7 @@ public class user{
 
     public void addRace(Races races){
         this.races.add(0, races);
+        updateScore();
     }
     public void updateRaces(Races race){
         for (Races r : this.races) {
@@ -81,12 +82,21 @@ public class user{
         this.updateScore();
     }
     public void updateScore(){
-        int[] runScores;
+        int[] runScores = new int[this.getRuns().size()];
+        int[] raceScore = new int[this.getRaces().size()];
         int totalScore = 0;
+
         if(this.getRuns()!=null){
-            runScores = new int[this.getRuns().size()];
             for(int i = 0; i<this.getRuns().size(); i++){
                 totalScore += this.getRuns().get(i).getScore();
+            }
+        }
+        if(this.getRaces()!=null){
+            raceScore = new int[this.getRaces().size()];
+            for(int i = 0; i<this.getRaces().size(); i++){
+                if(this.getRaces().get(i).isComplete) {
+                    totalScore += this.getRaces().get(i).points;
+                }
             }
         }
         this.userScore = totalScore;

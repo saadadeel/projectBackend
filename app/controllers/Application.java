@@ -3,9 +3,7 @@ package controllers;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.google.gson.Gson;
 import com.mongodb.DB;
-import models.Level;
-import models.minimalUser;
-import models.user;
+import models.*;
 import org.jongo.Jongo;
 import org.jongo.MongoCollection;
 import play.mvc.*;
@@ -142,5 +140,34 @@ public class Application extends Controller {
         users.update("{'username':'" + u.getUsername() + "'}").with(one);
 //
         return ok(Json.toJson(users.findOne("{'username':'" + u.getUsername() + "'}").as(user.class)));
+    }
+
+    public Result update(){
+        JsonNode json = request().body().asJson();
+        if(json == null) {
+            return badRequest("Expecting Json data");
+        } else {
+            user dataFromClient = new Gson().fromJson(String.valueOf(json), user.class);
+            user one = users.findOne("{'username':'" + dataFromClient.getUsername() + "'}").as(user.class);
+
+           ArrayList<Run> runData = dataFromClient.getRuns();
+           runData.removeAll(one.getRuns());
+
+            ArrayList<Races> races = dataFromClient.getRaces();
+            races.removeAll(one.getRaces());
+
+            for(Run run: runData) {
+                one.addRun(run);
+                users.update("{'username':'" + run.getUsername() + "'}").with(one);
+            }
+
+            for(Races race : races){
+                if(race.isComplete){
+                    one.addRace(race);
+                    users.update("{'username':'" + one.getUsername() + "'}").with(one);
+                }
+            }
+            return ok(Json.toJson(one));
+        }
     }
 }
