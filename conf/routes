@@ -49,6 +49,6 @@ POST    /activity/completeRace                    @controllers.Activities.accept
 GET /league/test                                       @controllers.Application.addTestUser()
 
 # updating
-GET /refresh                                       @controllers.Application.update()
+POST /refresh                                       @controllers.Application.update()
 
 
