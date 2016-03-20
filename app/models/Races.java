@@ -11,14 +11,14 @@ public class Races {
         public String competitorUsername;
 
         @JsonProperty("challengedMiles")
-        public int challengedMiles;
+        public double challengedMiles;
 
         @JsonProperty("challengedTime")
-        public Double challengedSpeed;
+        public double challengedSpeed;
 
         public Boolean isComplete;
-        public int completedMiles;
-        public Double completedSpeed;
+        public double completedMiles;
+        public double completedSpeed;
 
         @JsonProperty("speedChallengeCompleted")
         public int speedChallengeCompleted;
@@ -45,8 +45,8 @@ public class Races {
         }
 
     public String getId(){return this.id;}
-    public void setChallengedMiles(int m){ this.challengedMiles = m;}
-    public void setChallengedSpeed(Double s){ this.challengedSpeed = s;}
+    public void setChallengedMiles(double m){ this.challengedMiles = m;}
+    public void setChallengedSpeed(double s){ this.challengedSpeed = s;}
     public void setPoints(int p){this.points = p;}
     public int getPoints(){return this.points;}
     public void isWinner(Boolean result){

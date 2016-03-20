@@ -5,8 +5,8 @@ package models;
  */
 public class minimalUser implements Comparable{
     public String username;
-    public int averageDistance = 0;
-    public Double averageSpeed = 0.0;
+    public double averageDistance = 0.0;
+    public double averageSpeed = 0.0;
     public int userScore = 0;
     public int userLevel;
 

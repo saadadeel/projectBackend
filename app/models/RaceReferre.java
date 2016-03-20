@@ -16,10 +16,10 @@ public class RaceReferre{
     String id;
     user challenger;
     user challenge;
-    Double challengerSpeed = 0.0;
-    Double challengeeSpeed = 0.0;
-    int challengerMiles = 0;
-    int challengeeMiles = 0;
+    double challengerSpeed = 0.0;
+    double challengeeSpeed = 0.0;
+    double challengerMiles = 0.0;
+    double challengeeMiles = 0.0;
     int challengerPoints = 0;
     int challengedPoints = 0;
 
@@ -33,9 +33,9 @@ public class RaceReferre{
     public void setChallenge(){
         int levelDifference = this.challenge.getUserLevel() - this.challenger.getUserLevel();
 
-        int miles = this.challenger.getAverageDistance();
+        double miles = this.challenger.getAverageDistance();
         Double speed = this.challenger.averageSpeed;
-        int miles1 = this.challenge.getAverageDistance();
+        double miles1 = this.challenge.getAverageDistance();
         Double speed1 = this.challenger.averageSpeed;
 
         if(this.challenge.getUserLevel()<this.challenger.getUserLevel()){
@@ -77,10 +77,10 @@ public class RaceReferre{
         this.challenge.updateRaces(two);
     }
 
-    public int getChallengerMiles(){return this.challengerMiles;}
-    public int getChallengedMiles(){return this.challengeeMiles;}
-    public Double getChallengerSpeed(){return this.challengerSpeed;}
-    public Double getChallengedSpeed(){return this.challengeeSpeed;}
+    public double getChallengerMiles(){return this.challengerMiles;}
+    public double getChallengedMiles(){return this.challengeeMiles;}
+    public double getChallengerSpeed(){return this.challengerSpeed;}
+    public double getChallengedSpeed(){return this.challengeeSpeed;}
 
     public user getChallenger(){return this.challenger;}
     public user getChallenge(){return this.challenge;}
