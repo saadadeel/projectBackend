@@ -143,6 +143,8 @@ public class Application extends Controller {
     }
 
     public Result update(){
+        ArrayList<String> leagueUsernames = new ArrayList<String>();
+        ArrayList<minimalUser> league = new ArrayList<minimalUser>();
         JsonNode json = request().body().asJson();
         if(json == null) {
             return badRequest("Expecting Json data");
@@ -167,6 +169,14 @@ public class Application extends Controller {
                     users.update("{'username':'" + one.getUsername() + "'}").with(one);
                 }
             }
+            leagueUsernames = one.getLeagueUsernames();
+            for(String un: leagueUsernames){
+                minimalUser mOne = users.findOne("{'username':'" + un + "'}").as(minimalUser.class);
+                league.add(mOne);
+            }
+            Collections.sort(league);
+            one.setleague(league);
+
             return ok(Json.toJson(one));
         }
     }

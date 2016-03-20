@@ -10,26 +10,26 @@ import java.util.Date;
  */
 public class Run {
     public String date;
-    public int distance;
+    public double distance;
     public int time;
-    public int speed;
+    public double speed;
     public int score = 3;
     public String username;
 
     public Run(){}
 
-    public Run(int d, int t){
+    public Run(double d, int t){
         this.distance = d;
         this.time = t;
         this.speed = d/t;
         this.date = getDate();
     }
 
-    public int getDistance(){
+    public double getDistance(){
         return distance;
     }
 
-    public int getSpeed() {
+    public double getSpeed() {
         return speed;
     }
 

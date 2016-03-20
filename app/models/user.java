@@ -27,8 +27,8 @@ public class user{
     public ArrayList<String> leagueUsernames = new ArrayList<String>();
     public int userScore;
     public int userLevel;
-    public int averageDistance;
-    public Double averageSpeed;
+    public double averageDistance;
+    public double averageSpeed;
 
     public user(){}
 
@@ -43,8 +43,8 @@ public class user{
     public String getPassword(){return this.password;}
     public String getFirstName(){return this.firstName;}
     public String getUsername(){return this.username;}
-    public int getAverageDistance(){return this.averageDistance;}
-    public Double getAverageSpeed(){return this.averageSpeed;}
+    public double getAverageDistance(){return this.averageDistance;}
+    public double getAverageSpeed(){return this.averageSpeed;}
     public int getUserLevel(){return this.userLevel;}
 
     /////Races////////
