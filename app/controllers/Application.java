@@ -157,6 +157,7 @@ public class Application extends Controller {
 
             for(Run run: runData) {
                 if(run.getIsSynced() == 0){
+                    run.setIsSynced(1);
                     one.addRun(run);
                 }
             }
