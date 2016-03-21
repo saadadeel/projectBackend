@@ -153,16 +153,14 @@ public class Application extends Controller {
             user one = users.findOne("{'username':'" + dataFromClient.getUsername() + "'}").as(user.class);
 
            ArrayList<Run> runData = dataFromClient.getRuns();
-           runData.removeAll(one.getRuns());
-
             ArrayList<Races> races = dataFromClient.getRaces();
-            races.removeAll(one.getRaces());
 
             for(Run run: runData) {
-                one.addRun(run);
-                users.update("{'username':'" + run.getUsername() + "'}").with(one);
+                if(run.getIsSynced() == 0){
+                    one.addRun(run);
+                }
             }
-
+            users.update("{'username':'" + one.getUsername() + "'}").with(one);
             for(Races race : races){
                 if(race.isComplete){
                     one.addRace(race);
