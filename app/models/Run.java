@@ -53,7 +53,7 @@ public class Run {
     }
 
     public int getIsSynced(){
-        return this.getIsSynced();
+        return this.isSynced;
     }
 
     public void setIsSynced(int a){
