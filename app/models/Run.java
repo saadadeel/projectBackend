@@ -15,7 +15,6 @@ public class Run {
     public double speed;
     public int score = 3;
     public String username;
-    public int isSynced;
 
     public Run(){}
 
@@ -50,14 +49,6 @@ public class Run {
 
     public String getUsername(){
         return this.username;
-    }
-
-    public int getIsSynced(){
-        return this.isSynced;
-    }
-
-    public void setIsSynced(int a){
-        this.isSynced = a;
     }
 
     public void setScore(user user){
