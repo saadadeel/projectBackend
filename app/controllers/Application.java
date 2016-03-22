@@ -155,12 +155,6 @@ public class Application extends Controller {
            ArrayList<Run> runData = dataFromClient.getRuns();
             ArrayList<Races> races = dataFromClient.getRaces();
 
-            for(Run run: runData) {
-                if(run.getIsSynced() == 0){
-                    run.setIsSynced(1);
-                    one.addRun(run);
-                }
-            }
             users.update("{'username':'" + one.getUsername() + "'}").with(one);
             for(Races race : races){
                 if(race.isComplete){
