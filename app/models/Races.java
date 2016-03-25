@@ -6,24 +6,24 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Created by saadadeel on 22/02/2016.
  */
 public class Races {
-        public String status;
-        public String id;
-        public String competitorUsername;
+    public String status;
+    public String id;
+    public String competitorUsername;
 
-        @JsonProperty("challengedMiles")
-        public double challengedMiles;
+    @JsonProperty("challengedMiles")
+    public double challengedMiles;
 
-        @JsonProperty("challengedTime")
-        public double challengedSpeed;
+    @JsonProperty("challengedTime")
+    public double challengedSpeed;
 
-        public Boolean isComplete;
-        public double completedMiles;
-        public double completedSpeed;
+    public Boolean isComplete;
+    public double completedMiles;
+    public double completedSpeed;
 
-        @JsonProperty("speedChallengeCompleted")
-        public int speedChallengeCompleted;
-        public String result;
-        public int points;
+    @JsonProperty("speedChallengeCompleted")
+    public double speedChallengeCompleted;
+    public String result;
+    public int points;
 
         public Races(){}
 
@@ -32,8 +32,8 @@ public class Races {
             this.competitorUsername = cUN;
         }
 
-        public Races(String st, String cUN){
-            this.status = "recieved";
+        public Races(String st, String cUN, String status){
+            this.status = status;
             this.competitorUsername = cUN;
             this.id = st;
         }

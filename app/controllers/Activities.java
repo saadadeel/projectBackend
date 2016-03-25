@@ -16,6 +16,7 @@ import play.mvc.Result;
 import play.twirl.api.Content;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * Created by saadadeel on 21/02/2016.
@@ -53,21 +54,21 @@ public class Activities extends Controller {
     }
 
     public Result setRace(){
-        JsonNode json = request().body().asJson();
-        if(json == null) {
-            return badRequest("Expecting Json data");
-        } else {
-            String id= json.findPath("id").toString();
-            String compUsername = json.findPath("compUsername").toString();
-            String username = json.findPath("username").toString();
+//        JsonNode json = request().body().asJson();
+//        if(json == null) {
+//            return badRequest("Expecting Json data");
+//        } else {
+            String id= UUID.randomUUID().toString();//json.findPath("id").toString();
+            String compUsername = "race3";//json.findPath("compUsername").toString();
+            String username = "race";//json.findPath("username").toString();
 
-            user one = users.findOne("{'username':" + username + "}").as(user.class);
-            user two = users.findOne("{'username':" + compUsername+ "}").as(user.class);
+            user one = users.findOne("{'username':'" + username + "'}").as(user.class);
+            user two = users.findOne("{'username':'" + compUsername+ "'}").as(user.class);
 
             RaceReferre referre = new RaceReferre(one,two);
             referre.setChallenge();
 
-            Races challenged = new Races(id, username);
+            Races challenged = new Races(id, username, "recieved");
             challenged.setChallengedMiles(referre.getChallengedMiles());
             challenged.setChallengedSpeed(referre.getChallengedSpeed());
             challenged.setPoints(referre.getChallengedPoints());
@@ -75,18 +76,18 @@ public class Activities extends Controller {
             two.addRace(challenged);
             users.update("{'username':'" + two.getUsername() + "'}").with(two);
 
-            Races challenger = new Races(compUsername);
-            challenger.setChallengedMiles(referre.getChallengerMiles());
-            challenger.setChallengedSpeed(referre.getChallengerSpeed());
-            challenger.setPoints(referre.getChallengerPoints());
-
-            one.addRace(challenger);
-            users.update("{'username':'" + two.getUsername() + "'}").with(one);
+//            Races challenger = new Races(id, compUsername, "pending");
+//            challenger.setChallengedMiles(referre.getChallengerMiles());
+//            challenger.setChallengedSpeed(referre.getChallengerSpeed());
+//            challenger.setPoints(referre.getChallengerPoints());
+//
+//            one.addRace(challenger);
+//            users.update("{'username':'" + two.getUsername() + "'}").with(one);
 
             /////write challenges to users and persist///
 
-            return ok(Json.toJson(one));
-        }
+            return ok(Json.toJson(two));
+//        }
     }
 
     public Result racePortionCompleted(){
