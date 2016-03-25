@@ -18,7 +18,12 @@ public class minimalUser implements Comparable{
 
     @Override
     public int compareTo(Object o) {
-        int score=((minimalUser) o).getUserScore();
-        return score-getUserScore();
+        if(o!=null) {
+            int score = ((minimalUser) o).getUserScore();
+            return score - getUserScore();
+        }else{
+            int score = 0;
+            return score - getUserScore();
+        }
     }
 }
