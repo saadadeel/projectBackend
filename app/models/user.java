@@ -94,8 +94,35 @@ public class user{
 
     public ArrayList<Run> getRuns(){return this.runs;}
     public void addRun(Run r){
+//        this.runs.add(0, r);
+//        this.updateScore();
         this.runs.add(0, r);
+        r.setScore(this);
+
         this.updateScore();
+        setLevel();
+        this.updateAverageDistandSpeed();
+    }
+    public void updateAverageDistandSpeed(){
+        double totalDist = 0.0;
+        double totalSpeed = 0.0;
+
+        if(this.getRuns()!=null){
+            for(int i = 0; i<this.getRuns().size(); i++){
+                totalDist += this.getRuns().get(i).getDistance();
+                totalSpeed += this.getRuns().get(i).getSpeed();
+            }
+        }
+        System.out.println(totalDist);
+        System.out.println(totalSpeed);
+        this.averageDistance = totalDist/this.getRuns().size();
+        this.averageSpeed = totalSpeed/this.getRuns().size();
+    }
+    public void setLevel(){
+        double avgDist = (this.getAverageDistance())/1000;
+        double avgSpeed = (this.getAverageSpeed())*3.6;
+
+        this.userLevel = (int)((avgDist*avgSpeed)/10);
     }
     public void updateScore(){
         int[] runScores = new int[this.getRuns().size()];

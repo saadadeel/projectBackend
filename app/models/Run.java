@@ -51,25 +51,39 @@ public class Run {
         return this.username;
     }
 
-    public void setScore(user user){
-        int counter = 0;
+    public void setScore(user user) {
         int temp = 0;
-        int numOfRuns = user.getRuns().size();
-        if(numOfRuns<5){counter=numOfRuns;}
-        else{counter=5;}
 
         ArrayList<Run> userRuns = user.getRuns();
         ArrayList<Double> dist = new ArrayList<Double>();
         ArrayList<Double> speed = new ArrayList<Double>();
 
-        if(userRuns!=null && userRuns.size()>1) {
+        setBasicPoints(user);
+        setBonusPoints(userRuns);
+    }
+
+    private void setBasicPoints(user user){
+        if(user.getAverageDistance()< this.getDistance() && user.getAverageSpeed()<this.getSpeed()){
+            this.score += 3;
+        }
+    }
+
+    private void setBonusPoints(ArrayList<Run> userRuns){
+        int counter = 0;
+        int numOfRuns = userRuns.size();
+        if (numOfRuns < 5) {
+            counter = numOfRuns;
+        } else {
+            counter = 5;
+        }
+        if (userRuns != null && userRuns.size() > 2) {
             for (int i = 0; i < counter; i++) {
-                if (userRuns.get(i).getDistance() > userRuns.get(i + 1).getDistance() && userRuns.get(i).getTime() < userRuns.get(i + 1).getTime()) {
+                if (userRuns.get(i).getDistance() > userRuns.get(i + 1).getDistance() && userRuns.get(i).getSpeed() < userRuns.get(i + 1).getTime()) {
                     System.out.println("/////// here");
                     System.out.println(this.score);
                     this.score += 4;
                     if (i == 4) {
-                        this.score  += 10;
+                        this.score += 10;
                     }
                 } else {
                     System.out.println("******* yessss what");
