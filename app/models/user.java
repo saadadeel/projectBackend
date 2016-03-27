@@ -46,7 +46,10 @@ public class user{
     public double averageDistance;
     public double averageSpeed;
 
-    public user(){}
+    public user(){
+        this.averageDistance = 0.0;
+        this.averageSpeed = 0.0;
+    }
 
     public user(String fn, String un, String ln, String pw){
         this.firstName = fn;
@@ -54,8 +57,6 @@ public class user{
         this.lastName = ln;
         this.password = pw;
         this.userLevel = 4;
-        this.averageDistance = 0.0;
-        this.averageSpeed = 0.0;
     }
 
     public String getPassword(){return this.password;}
