@@ -43,12 +43,10 @@ public class user{
     public ArrayList<String> leagueUsernames = new ArrayList<String>();
     public int userScore;
     public int userLevel;
-    public double averageDistance;
-    public double averageSpeed;
+    public double averageDistance = 0.0;
+    public double averageSpeed = 0.0;
 
     public user(){
-        this.averageDistance = 0.0;
-        this.averageSpeed = 0.0;
     }
 
     public user(String fn, String un, String ln, String pw){
