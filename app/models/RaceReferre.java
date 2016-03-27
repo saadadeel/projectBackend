@@ -40,12 +40,12 @@ public class RaceReferre{
 
         if(this.challenge.getUserLevel()<this.challenger.getUserLevel()){
             this.challengerSpeed = speed * 1.2;
-            this.challengeeSpeed = speed1*(levelDifference*0.5);
+            this.challengeeSpeed = speed1 + levelDifference;
 
             this.challengerPoints = 5;
             this.challengedPoints = 5 + (levelDifference * 2);
         }else{
-            this.challengerSpeed = speed*(levelDifference*0.5);
+            this.challengerSpeed = speed + levelDifference;
             this.challengeeSpeed = speed1 * 1.2;
 
             this.challengedPoints = 5;

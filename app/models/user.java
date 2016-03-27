@@ -54,6 +54,8 @@ public class user{
         this.lastName = ln;
         this.password = pw;
         this.userLevel = 4;
+        this.averageDistance = 0.0;
+        this.averageSpeed = 0.0;
     }
 
     public String getPassword(){return this.password;}
