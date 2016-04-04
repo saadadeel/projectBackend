@@ -43,8 +43,8 @@ public class user{
     public ArrayList<String> leagueUsernames = new ArrayList<String>();
     public int userScore;
     public int userLevel;
-    public double averageDistance = 0.0;
-    public double averageSpeed = 0.0;
+    public double averageDistance;
+    public double averageSpeed;
 
     public user(){
     }
@@ -155,6 +155,9 @@ public class user{
         this.league = mU;
     }
     public void setLeagueUsernames(ArrayList<String> lu){this.leagueUsernames = lu;}
+    public void setUserLevel(int level){
+        this.userLevel = level;
+    }
     public void addLeagueUsernames(String lu){this.leagueUsernames.add(lu);}
     public ArrayList<minimalUser> getLeague(){return this.league;}
     public ArrayList<String> getLeagueUsernames(){return this.leagueUsernames;}
