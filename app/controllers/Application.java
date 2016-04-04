@@ -82,7 +82,6 @@ public class Application extends Controller {
 
     public Result signIn() {
         JsonNode json = request().body().asJson();
-//        ArrayList<minimalUser> mU= new ArrayList<minimalUser>();
         ArrayList<String> randomUsernames = new ArrayList<String>();
 
         if(json == null) {
@@ -129,7 +128,7 @@ public class Application extends Controller {
     }
 
     public Result addTestUser() {
-        user u = new user("test", "race3", "test", "password");
+        user u = new user("test", "rTest11", "test", "password");
 //        Level level = levelCollection.findOne("{'level':" + u.getUserLevel() + "}").as(Level.class);
 //        level.addUsername(u.getUsername());
 //        levelCollection.update("{'level':" + u.getUserLevel()+ "}").with(level);

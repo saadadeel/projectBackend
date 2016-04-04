@@ -59,11 +59,13 @@ public class Activities extends Controller {
 //            return badRequest("Expecting Json data");
 //        } else {
             String id= UUID.randomUUID().toString();//json.findPath("id").toString();
-            String compUsername = "race3";//json.findPath("compUsername").toString();
-            String username = "race";//json.findPath("username").toString();
+            String compUsername = "racer";//json.findPath("compUsername").toString();
+            String username = "rTest";//json.findPath("username").toString();
 
             user one = users.findOne("{'username':'" + username + "'}").as(user.class);
             user two = users.findOne("{'username':'" + compUsername+ "'}").as(user.class);
+
+            System.out.println("Users set : " + one.getFirstName() + "   " + two.getFirstName());
 
             RaceReferre referre = new RaceReferre(one,two);
             referre.setChallenge();
@@ -76,13 +78,13 @@ public class Activities extends Controller {
             two.addRace(challenged);
             users.update("{'username':'" + two.getUsername() + "'}").with(two);
 
-//            Races challenger = new Races(id, compUsername, "pending");
-//            challenger.setChallengedMiles(referre.getChallengerMiles());
-//            challenger.setChallengedSpeed(referre.getChallengerSpeed());
-//            challenger.setPoints(referre.getChallengerPoints());
-//
-//            one.addRace(challenger);
-//            users.update("{'username':'" + two.getUsername() + "'}").with(one);
+            Races challenger = new Races(id, compUsername, "pending");
+            challenger.setChallengedMiles(referre.getChallengerMiles());
+            challenger.setChallengedSpeed(referre.getChallengerSpeed());
+            challenger.setPoints(referre.getChallengerPoints());
+
+            one.addRace(challenger);
+            users.update("{'username':'" + two.getUsername() + "'}").with(one);
 
             /////write challenges to users and persist///
 
@@ -150,14 +152,11 @@ public class Activities extends Controller {
     }
 
     public Result runTest(){
-        user u = new user("Ammar", "amRaufi44", "Raufi", "password");
-        String username = u.getUsername();
-        String cu = "ShameelahK";
 
-        user one = users.findOne("{'username':\"" + username + "\"}").as(user.class);
-        one.acceptRace(cu);
+        user one = users.findOne("{'username':'rTest'}").as(user.class);
+        one.addRun(new Run(14000.00, 6.778, "rTest"));
 
-        users.update("{'username':\"" + username + "\"}").with(one);
+        users.update("{'username':'rTest'}").with(one);
         /////write challenges to users and persist///
 
         return ok(Json.toJson(one));

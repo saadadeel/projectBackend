@@ -25,6 +25,13 @@ public class Run {
         this.date = getDate();
     }
 
+    public Run(Double d, Double speed, String u){
+        this.distance = d;
+        this.speed = speed;
+        this.time = (int)(d/speed);
+        this.username = u;
+    }
+
     public double getDistance(){
         return distance;
     }

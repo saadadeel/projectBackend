@@ -44,12 +44,19 @@ public class RaceReferre{
 
             this.challengerPoints = 5;
             this.challengedPoints = 5 + (levelDifference * 2);
-        }else{
+        }else if (this.challenge.getUserLevel()>this.challenger.getUserLevel()){
             this.challengerSpeed = speed + levelDifference;
             this.challengeeSpeed = speed1 * 1.2;
 
             this.challengedPoints = 5;
             this.challengerPoints = 5 + (levelDifference * 2);
+        }
+        else if (this.challenge.getUserLevel()==this.challenger.getUserLevel()){
+            this.challengerSpeed = speed * 1.2;
+            this.challengeeSpeed = speed1 * 1.2;
+
+            this.challengedPoints = 5;
+            this.challengerPoints = 5;
         }
         this.challengerMiles = this.challenger.getAverageDistance()/2;
         this.challengeeMiles = this.challenge.getAverageDistance()/2;
