@@ -34,32 +34,25 @@ public class RaceReferre{
         int levelDifference = this.challenge.getUserLevel() - this.challenger.getUserLevel();
 
         double miles = this.challenger.getAverageDistance();
-        Double speed = this.challenger.averageSpeed;
+        double speed = this.challenger.averageSpeed;
         double miles1 = this.challenge.getAverageDistance();
-        Double speed1 = this.challenger.averageSpeed;
+        double speed1 = this.challenge.averageSpeed;
+
+        this.challengerPoints = 5;
+        this.challengedPoints = 5;
 
         if(this.challenge.getUserLevel()<this.challenger.getUserLevel()){
-            this.challengerSpeed = speed * 1.2;
-            this.challengeeSpeed = speed1 + levelDifference;
-
-            this.challengerPoints = 5;
             this.challengedPoints = 5 + (levelDifference * 2);
-        }else if (this.challenge.getUserLevel()>this.challenger.getUserLevel()){
-            this.challengerSpeed = speed + levelDifference;
-            this.challengeeSpeed = speed1 * 1.2;
 
-            this.challengedPoints = 5;
+        }else if (this.challenge.getUserLevel()>this.challenger.getUserLevel()){
             this.challengerPoints = 5 + (levelDifference * 2);
         }
-        else if (this.challenge.getUserLevel()==this.challenger.getUserLevel()){
-            this.challengerSpeed = speed * 1.2;
-            this.challengeeSpeed = speed1 * 1.2;
 
-            this.challengedPoints = 5;
-            this.challengerPoints = 5;
-        }
         this.challengerMiles = this.challenger.getAverageDistance()/2;
         this.challengeeMiles = this.challenge.getAverageDistance()/2;
+        this.challengerSpeed = speed1;
+        this.challengeeSpeed = speed;
+
     }
 
     public void challengeComplete(Races one, Races two){

@@ -13,9 +13,8 @@ public class Races {
     @JsonProperty("challengedMiles")
     public double challengedMiles;
 
-    @JsonProperty("challengedTime")
+    @JsonProperty("challengedSpeed")
     public double challengedSpeed;
-
     public Boolean isComplete;
     public double completedMiles;
     public double completedSpeed;
