@@ -88,6 +88,8 @@ public class Application extends Controller {
             return badRequest("Expecting Json data");
         } else {
             user u = new Gson().fromJson(String.valueOf(json), user.class);
+            u.averageDistance = 0.0;
+            u.averageSpeed = 0.0;
             Level level = levelCollection.findOne("{'level':" + u.getUserLevel() + "}").as(Level.class);
             level.addUsername(u.getUsername());
             users.save(u);
