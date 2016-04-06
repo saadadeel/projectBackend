@@ -109,30 +109,30 @@ public class Activities extends Controller {
             user u = null;
 
             user competitor = users.findOne("{'username':'" + race.competitorUsername + "'}").as(user.class);
-//
-//            for(Races r: competitor.races){
-//                if(r.id == race.getId()){
-//                    compRace = r;
-//                }
-//            }
-//            if(compRace!=null){
-//                u = users.findOne("{'username':" + compRace.competitorUsername + "}").as(user.class);
-//                u.updateRaces(race);
-//            }else{
-//
-//            }
-//            if(compRace.isComplete){
-//                RaceReferre referre = new RaceReferre(u, competitor);
-//                referre.challengeComplete(race,compRace);
-//                u = referre.getChallenger();
-//                competitor = referre.getChallenge();
-//            }else{
-//                compRace.status = "active";
-//                competitor.updateRaces(compRace);
-//            }
-//
-//            users.update("{'username':'" + u.getUsername()+ "'}").with(u);
-//            users.update("{'username':'" + competitor.getUsername()+ "'}").with(competitor);
+
+            for(Races r: competitor.races){
+                if(r.id == race.getId()){
+                    compRace = r;
+                }
+            }
+            if(compRace!=null){
+                u = users.findOne("{'username':'" + compRace.competitorUsername + "'}").as(user.class);
+                u.updateRaces(race);
+            }else{
+                return ok(Json.toJson("no race"));
+            }
+            if(compRace.isComplete){
+                RaceReferre referre = new RaceReferre(u, competitor);
+                referre.challengeComplete(race,compRace);
+                u = referre.getChallenger();
+                competitor = referre.getChallenge();
+            }else{
+                compRace.status = "active";
+                competitor.updateRaces(compRace);
+            }
+
+            users.update("{'username':'" + u.getUsername()+ "'}").with(u);
+            users.update("{'username':'" + competitor.getUsername()+ "'}").with(competitor);
 
             return ok(Json.toJson(competitor));
         }
