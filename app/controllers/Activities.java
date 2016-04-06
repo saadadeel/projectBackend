@@ -107,11 +107,10 @@ public class Activities extends Controller {
             Races race= new Gson().fromJson(String.valueOf(json), Races.class);
             Races compRace = null;
             user u = null;
-
             user competitor = users.findOne("{'username':'" + race.competitorUsername + "'}").as(user.class);
 
             for(Races r: competitor.races){
-                if(r.id == race.getId()){
+                if(r.id.equals(race.getId())){
                     compRace = r;
                 }
             }
