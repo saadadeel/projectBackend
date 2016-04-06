@@ -108,7 +108,7 @@ public class Activities extends Controller {
             Races compRace = null;
             user u = null;
 
-            user competitor = users.findOne("{'username':" + race.competitorUsername + "}").as(user.class);
+            user competitor = users.findOne("{'username':'" + race.competitorUsername + "'}").as(user.class);
 //
 //            for(Races r: competitor.races){
 //                if(r.id == race.getId()){
