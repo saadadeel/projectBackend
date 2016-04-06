@@ -121,15 +121,15 @@ public class Activities extends Controller {
             }else{
 
             }
-            if(compRace.isComplete){
-                RaceReferre referre = new RaceReferre(u, competitor);
-                referre.challengeComplete(race,compRace);
-                u = referre.getChallenger();
-                competitor = referre.getChallenge();
-            }else{
+//            if(compRace.isComplete){
+//                RaceReferre referre = new RaceReferre(u, competitor);
+//                referre.challengeComplete(race,compRace);
+//                u = referre.getChallenger();
+//                competitor = referre.getChallenge();
+//            }else{
                 compRace.status = "active";
                 competitor.updateRaces(compRace);
-            }
+//            }
 
             users.update("{'username':'" + u.getUsername()+ "'}").with(u);
             users.update("{'username':'" + competitor.getUsername()+ "'}").with(competitor);
