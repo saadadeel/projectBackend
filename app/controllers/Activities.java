@@ -116,7 +116,7 @@ public class Activities extends Controller {
             }
             if(compRace!=null){
                 u = users.findOne("{'username':'" + compRace.competitorUsername + "'}").as(user.class);
-                u.updateRaces(race);
+//                u.updateRaces(race);
             }else{
                 return ok(Json.toJson("no race"));
             }
