@@ -85,12 +85,9 @@ public class user{
     }
     public void updateRaces(Races race){
         for (Races r : this.races) {
-            if (race.getId().equals(r.id)) {
+            if (r.id.equals(race.getId())) {
                 this.races.set(this.races.indexOf(r), race);
             }
-        }
-        if(race.points>0 && race.result.equals("winner")){
-            this.addScore(race.points);
         }
     }
 
