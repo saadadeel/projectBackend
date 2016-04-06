@@ -105,10 +105,10 @@ public class Activities extends Controller {
 //            int timeDone;
 
             Races race= new Gson().fromJson(String.valueOf(json), Races.class);
-//            Races compRace = null;
-//            user u = null;
-//
-//            user competitor = users.findOne("{'username':" + race.competitorUsername + "}").as(user.class);
+            Races compRace = null;
+            user u = null;
+
+            user competitor = users.findOne("{'username':" + race.competitorUsername + "}").as(user.class);
 //
 //            for(Races r: competitor.races){
 //                if(r.id == race.getId()){
@@ -134,7 +134,7 @@ public class Activities extends Controller {
 //            users.update("{'username':'" + u.getUsername()+ "'}").with(u);
 //            users.update("{'username':'" + competitor.getUsername()+ "'}").with(competitor);
 
-            return ok(Json.toJson(race));
+            return ok(Json.toJson(competitor));
         }
     }
 
