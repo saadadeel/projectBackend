@@ -85,7 +85,7 @@ public class user{
     }
     public void updateRaces(Races race){
         for (Races r : this.races) {
-            if (race.getId() == r.id) {
+            if (race.getId().equals(r.id)) {
                 this.races.set(this.races.indexOf(r), race);
             }
         }
