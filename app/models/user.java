@@ -89,6 +89,9 @@ public class user{
                 this.races.set(this.races.indexOf(r), race);
             }
         }
+        if(race.points>0 && race.result.equals("winner")){
+            this.addScore(race.points);
+        }
     }
 
     /////Runs////////

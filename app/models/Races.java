@@ -23,6 +23,8 @@ public class Races {
     public double speedChallengeCompleted;
     public String result;
     public int points;
+    public int compUserLevel;
+    public boolean challengeComplete;
 
         public Races(){}
 
@@ -54,6 +56,9 @@ public class Races {
         }else{
             this.result = "loser";
         }
+    }
+    public void setCompUserLevel(int a){
+        this.compUserLevel = a;
     }
 
 //

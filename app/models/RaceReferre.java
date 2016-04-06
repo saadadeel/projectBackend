@@ -48,8 +48,8 @@ public class RaceReferre{
             this.challengerPoints = 5 + (levelDifference * 2);
         }
 
-        this.challengerMiles = this.challenger.getAverageDistance()/2;
-        this.challengeeMiles = this.challenge.getAverageDistance()/2;
+        this.challengerMiles = this.challenge.getAverageDistance()/2;
+        this.challengeeMiles = this.challenger.getAverageDistance()/2;
         this.challengerSpeed = speed1;
         this.challengeeSpeed = speed;
 
@@ -59,18 +59,24 @@ public class RaceReferre{
         Double oneCS = one.completedSpeed;
         Double twoCS = two.completedSpeed;
 
-        Double oneSpeedDiff = oneCS - this.challenger.getAverageSpeed();
-        Double twoSpeedDiff = twoCS - this.challenge.getAverageSpeed();
+        one.status = "complete";
+        two.status = "complete";
 
-        if(one.isComplete && two.isComplete){
-            if(oneSpeedDiff>twoSpeedDiff){
+        if(one.challengeComplete && !two.challengeComplete){
+            one.isWinner(true);
+            two.isWinner(false);
+        }else if(!one.challengeComplete && two.challengeComplete){
+            one.isWinner(false);
+            two.isWinner(true);
+        } else if (one.challengeComplete && two.challengeComplete){
+            double perc1 = one.challengedSpeed/oneCS;
+            double perc2 = two.challengedSpeed/twoCS;
+            if(perc1>perc2){
                 one.isWinner(true);
                 two.isWinner(false);
-                this.challenger.addScore(one.getPoints());
             }else{
-                two.isWinner(true);
                 one.isWinner(false);
-                this.challenge.addScore(two.getPoints());
+                two.isWinner(true);
             }
         }
         this.challenger.updateRaces(one);

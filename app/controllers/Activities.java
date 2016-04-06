@@ -59,8 +59,8 @@ public class Activities extends Controller {
 //            return badRequest("Expecting Json data");
 //        } else {
             String id= UUID.randomUUID().toString();//json.findPath("id").toString();
-            String compUsername = "rT4";//json.findPath("compUsername").toString();
-            String username = "rTest";//json.findPath("username").toString();
+            String compUsername = "rTT";//json.findPath("compUsername").toString();
+            String username = "rT14";//json.findPath("username").toString();
 
             user one = users.findOne("{'username':'" + username + "'}").as(user.class);
             user two = users.findOne("{'username':'" + compUsername+ "'}").as(user.class);
@@ -74,6 +74,7 @@ public class Activities extends Controller {
             challenged.setChallengedMiles(referre.getChallengedMiles());
             challenged.setChallengedSpeed(referre.getChallengedSpeed());
             challenged.setPoints(referre.getChallengedPoints());
+            challenged.setCompUserLevel(one.getUserLevel());
 
             two.addRace(challenged);
             users.update("{'username':'" + two.getUsername() + "'}").with(two);
@@ -82,6 +83,7 @@ public class Activities extends Controller {
             challenger.setChallengedMiles(referre.getChallengerMiles());
             challenger.setChallengedSpeed(referre.getChallengerSpeed());
             challenger.setPoints(referre.getChallengerPoints());
+            challenger.setCompUserLevel(two.getUserLevel());
 
             one.addRace(challenger);
             users.update("{'username':'" + one.getUsername() + "'}").with(one);
@@ -97,20 +99,42 @@ public class Activities extends Controller {
         if(json == null) {
             return badRequest("Expecting Json data");
         } else {
-            String id= json.findPath("id").toString();
-            String compUsername = json.findPath("compUsername").toString();
-            String username = json.findPath("username").toString();
-            int timeDone;
+//            String id= json.findPath("id").toString();
+//            String compUsername = json.findPath("compUsername").toString();
+//            String username = json.findPath("username").toString();
+//            int timeDone;
 
-            user one = users.findOne("{'username':" + username + "}").as(user.class);
-            user two = users.findOne("{'username':" + compUsername+ "}").as(user.class);
+            Races race= new Gson().fromJson(String.valueOf(json), Races.class);
+            Races compRace = null;
+            user u = null;
 
-            RaceReferre referre = new RaceReferre(one, two);
-            referre.setChallenge();
+            user competitor = users.findOne("{'username':" + race.competitorUsername + "}").as(user.class);
 
-            /////write challenges to users and persist///
+            for(Races r: competitor.races){
+                if(r.id == race.getId()){
+                    compRace = r;
+                }
+            }
+            if(compRace!=null){
+                u = users.findOne("{'username':" + compRace.competitorUsername + "}").as(user.class);
+                u.updateRaces(race);
+            }else{
 
-            return ok(Json.toJson("okk"));
+            }
+            if(compRace.isComplete){
+                RaceReferre referre = new RaceReferre(u, competitor);
+                referre.challengeComplete(race,compRace);
+                u = referre.getChallenger();
+                competitor = referre.getChallenge();
+            }else{
+                compRace.status = "active";
+                competitor.updateRaces(compRace);
+            }
+
+            users.update("{'username':'" + u.getUsername()+ "'}").with(u);
+            users.update("{'username':'" + competitor.getUsername()+ "'}").with(competitor);
+
+            return ok(Json.toJson(u));
         }
     }
 
