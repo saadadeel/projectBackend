@@ -133,7 +133,7 @@ public class Activities extends Controller {
 //            users.update("{'username':'" + u.getUsername()+ "'}").with(u);
 //            users.update("{'username':'" + competitor.getUsername()+ "'}").with(competitor);
 
-            return ok(Json.toJson(competitor));
+            return ok(Json.toJson(u));
         }
     }
 
