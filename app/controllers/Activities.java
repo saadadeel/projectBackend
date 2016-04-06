@@ -129,9 +129,9 @@ public class Activities extends Controller {
                 compRace.status = "active";
                 competitor.updateRaces(compRace);
             }
-//
-//            users.update("{'username':'" + u.getUsername()+ "'}").with(u);
-//            users.update("{'username':'" + competitor.getUsername()+ "'}").with(competitor);
+
+            users.update("{'username':'" + u.getUsername()+ "'}").with(u);
+            users.update("{'username':'" + competitor.getUsername()+ "'}").with(competitor);
 
             return ok(Json.toJson(competitor));
         }
