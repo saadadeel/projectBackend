@@ -81,6 +81,12 @@ public class Application extends Controller {
         return ok(Json.toJson(one));
     }
 
+    public Result minimalUserDetails(String uName) throws ParseException, IOException {
+
+        MongoCollection users = jongo.getCollection("users");
+        minimalUser one = users.findOne("{'username':'" + uName + "'}").as(minimalUser.class);
+        return ok(Json.toJson(one));
+    }
 
     public Result signIn() {
         JsonNode json = request().body().asJson();

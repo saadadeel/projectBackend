@@ -126,13 +126,18 @@ public class user{
         this.userLevel = (int)((avgDist*avgSpeed)/10);
     }
     public void updateScore(){
-        int[] runScores = new int[this.getRuns().size()];
-        int[] raceScore = new int[this.getRaces().size()];
         int totalScore = 0;
 
         if(this.getRuns()!=null){
             for(int i = 0; i<this.getRuns().size(); i++){
                 totalScore += this.getRuns().get(i).getScore();
+            }
+        }
+        if(this.getRaces()!=null){
+            for(Races race : this.getRaces()){
+                if(race.result!=null && race.result.equals("winner")){
+                    totalScore += race.getPoints();
+                }
             }
         }
 //        if(this.getRaces()!=null){
