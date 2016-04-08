@@ -54,17 +54,17 @@ public class Activities extends Controller {
     }
 
     public Result setRace(){
-//        JsonNode json = request().body().asJson();
-//        if(json == null) {
-//            return badRequest("Expecting Json data");
-//        } else {
-            String id= UUID.randomUUID().toString();//json.findPath("id").toString();
-            String compUsername = "rTT";//json.findPath("compUsername").toString();
-            String username = "rT14";//json.findPath("username").toString();
+        JsonNode json = request().body().asJson();
+        if(json == null) {
+            return badRequest("Expecting Json data");
+        } else {
+            String id= json.findPath("id").toString();//UUID.randomUUID().toString();
+            String compUsername = json.findPath("compUsername").toString();//"rTT";
+            String username = json.findPath("username").toString();//"rT14";
 
             user one = users.findOne("{'username':'" + username + "'}").as(user.class);
             user two = users.findOne("{'username':'" + compUsername+ "'}").as(user.class);
-//
+
             System.out.println("Users set : " + one.getFirstName() + "   " + two.getFirstName());
 
             RaceReferre referre = new RaceReferre(one,two);
@@ -91,7 +91,7 @@ public class Activities extends Controller {
             /////write challenges to users and persist///
 
             return ok(Json.toJson(two));
-//        }
+        }
     }
 
     public Result racePortionCompleted(){
