@@ -65,30 +65,28 @@ public class Activities extends Controller {
             user one = users.findOne("{'username':" + username + "}").as(user.class);
             user two = users.findOne("{'username':" + compUsername+ "}").as(user.class);
 
-//            System.out.println("Users set : " + one.getFirstName() + "   " + two.getFirstName());
-//
-//            RaceReferre referre = new RaceReferre(one,two);
-//            referre.setChallenge();
-//
-//            Races challenged = new Races(id, username, "recieved");
-//            challenged.setChallengedMiles(referre.getChallengedMiles());
-//            challenged.setChallengedSpeed(referre.getChallengedSpeed());
-//            challenged.setPoints(referre.getChallengedPoints());
-//            challenged.setCompUserLevel(one.getUserLevel());
-//
-//            two.addRace(challenged);
-//            users.update("{'username':'" + two.getUsername() + "'}").with(two);
-//
-//            Races challenger = new Races(id, compUsername, "pending");
-//            challenger.setChallengedMiles(referre.getChallengerMiles());
-//            challenger.setChallengedSpeed(referre.getChallengerSpeed());
-//            challenger.setPoints(referre.getChallengerPoints());
-//            challenger.setCompUserLevel(two.getUserLevel());
-//
-//            one.addRace(challenger);
-//            users.update("{'username':'" + one.getUsername() + "'}").with(one);
+            System.out.println("Users set : " + one.getFirstName() + "   " + two.getFirstName());
 
-            /////write challenges to users and persist///
+            RaceReferre referre = new RaceReferre(one,two);
+            referre.setChallenge();
+
+            Races challenged = new Races(id, username, "recieved");
+            challenged.setChallengedMiles(referre.getChallengedMiles());
+            challenged.setChallengedSpeed(referre.getChallengedSpeed());
+            challenged.setPoints(referre.getChallengedPoints());
+            challenged.setCompUserLevel(one.getUserLevel());
+
+            two.addRace(challenged);
+            users.update("{'username':'" + two.getUsername() + "'}").with(two);
+
+            Races challenger = new Races(id, compUsername, "pending");
+            challenger.setChallengedMiles(referre.getChallengerMiles());
+            challenger.setChallengedSpeed(referre.getChallengerSpeed());
+            challenger.setPoints(referre.getChallengerPoints());
+            challenger.setCompUserLevel(two.getUserLevel());
+
+            one.addRace(challenger);
+            users.update("{'username':'" + one.getUsername() + "'}").with(one);
 
             return ok(Json.toJson(two));
         }
