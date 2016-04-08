@@ -58,12 +58,12 @@ public class Activities extends Controller {
         if(json == null) {
             return badRequest("Expecting Json data");
         } else {
-            String id= json.findPath("id").toString();//UUID.randomUUID().toString();
-            String compUsername = json.findPath("compUsername").toString();//"rTT";
-            String username = json.findPath("username").toString();//"rT14";
+            String id= json.findPath("id").toString().replace("\"", "");//UUID.randomUUID().toString();
+            String compUsername = json.findPath("compUsername").toString().replace("\"", "");//"rTT";
+            String username = json.findPath("username").toString().replace("\"", "");//"rT14";
 
-            user one = users.findOne("{'username':" + username + "}").as(user.class);
-            user two = users.findOne("{'username':" + compUsername+ "}").as(user.class);
+            user one = users.findOne("{'username':'" + username + "'}").as(user.class);
+            user two = users.findOne("{'username':'" + compUsername+ "'}").as(user.class);
 
             System.out.println("Users set : " + one.getFirstName() + "   " + two.getFirstName());
 
