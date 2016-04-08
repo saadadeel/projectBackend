@@ -85,7 +85,13 @@ public class Application extends Controller {
 
         MongoCollection users = jongo.getCollection("users");
         minimalUser one = users.findOne("{'username':'" + uName + "'}").as(minimalUser.class);
-        return ok(Json.toJson(one));
+
+        if(one!=null){
+            return ok(Json.toJson(one));
+        }
+        else{
+            return badRequest("No User Found");
+        }
     }
 
     public Result signIn() {
