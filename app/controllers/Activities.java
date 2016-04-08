@@ -62,8 +62,8 @@ public class Activities extends Controller {
             String compUsername = json.findPath("compUsername").toString();//"rTT";
             String username = json.findPath("username").toString();//"rT14";
 
-//            user one = users.findOne("{'username':'" + username + "'}").as(user.class);
-//            user two = users.findOne("{'username':'" + compUsername+ "'}").as(user.class);
+            user one = users.findOne("{'username':" + username + "}").as(user.class);
+            user two = users.findOne("{'username':" + compUsername+ "}").as(user.class);
 
 //            System.out.println("Users set : " + one.getFirstName() + "   " + two.getFirstName());
 //
@@ -90,7 +90,7 @@ public class Activities extends Controller {
 
             /////write challenges to users and persist///
 
-            return ok(username + "   " + compUsername + "    " + id);
+            return ok(Json.toJson(two));
         }
     }
 
