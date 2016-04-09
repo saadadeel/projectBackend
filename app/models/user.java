@@ -15,22 +15,6 @@ import java.util.List;
  */
 
 public class user{
-//    public String firstName;
-//    public String lastName;
-//    public String username;
-//    public String password;
-//    @JsonProperty("races")
-//    public ArrayList<Races> races = new ArrayList<Races>();
-//    @JsonProperty("runs")
-//    public ArrayList<Run> runs = new ArrayList<Run>();
-//    public ArrayList<minimalUser> league = new ArrayList<minimalUser>();
-//    public ArrayList<String> leagueUsernames = new ArrayList<String>();
-//    public int userScore;
-//    public int userLevel;
-//    public double averageDistance;
-//    public double averageSpeed;
-
-
     public String firstName;
     public String lastName;
     public String username;
@@ -43,6 +27,7 @@ public class user{
     public ArrayList<String> leagueUsernames = new ArrayList<String>();
     public int userScore;
     public int userLevel;
+    public int oldUserLevel;
     public double averageDistance;
     public double averageSpeed;
 
@@ -101,7 +86,6 @@ public class user{
         r.setScore(this);
 
         this.updateScore();
-        setLevel();
         this.updateAverageDistandSpeed();
     }
     public void updateAverageDistandSpeed(){
@@ -123,7 +107,14 @@ public class user{
         double avgDist = (this.getAverageDistance())/1000;
         double avgSpeed = (this.getAverageSpeed())*3.6;
 
-        this.userLevel = (int)((avgDist*avgSpeed)/10);
+        int level = (int)((avgDist*avgSpeed)/10);
+        if(level != this.userLevel){
+            this.oldUserLevel = this.userLevel;
+            this.userLevel = level;
+        }else{
+            this.userLevel = level;
+            this.userLevel = 0;
+        }
     }
     public void updateScore(){
         int totalScore = 0;
@@ -140,15 +131,8 @@ public class user{
                 }
             }
         }
-//        if(this.getRaces()!=null){
-//            raceScore = new int[this.getRaces().size()];
-//            for(int i = 0; i<this.getRaces().size(); i++){
-//                if(this.getRaces().get(i).isComplete) {
-//                    totalScore += this.getRaces().get(i).points;
-//                }
-//            }
-//        }
         this.userScore = totalScore;
+        setLevel();
     }
     public void addScore(int score){
         this.userScore+= score;
