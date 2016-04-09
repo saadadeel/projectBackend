@@ -85,8 +85,8 @@ public class user{
         this.runs.add(0, r);
         r.setScore(this);
 
-        this.updateScore();
         this.updateAverageDistandSpeed();
+        this.updateScore();
     }
     public void updateAverageDistandSpeed(){
         double totalDist = 0.0;
