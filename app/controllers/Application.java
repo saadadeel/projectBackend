@@ -122,6 +122,8 @@ public class Application extends Controller {
 
             Level level = levelCollection.findOne("{'level':" + u.getUserLevel() + "}").as(Level.class);
             level.addUsername(u.getUsername());
+            levelCollection.update("{'level':" + u.getUserLevel()+ "}").with(level);
+
             users.save(u);
 
             //////Set up league/////
@@ -159,17 +161,18 @@ public class Application extends Controller {
     }
 
     public Result addTestUser() {
-        user u = new user("test", "rTest11", "test", "password");
-//        Level level = levelCollection.findOne("{'level':" + u.getUserLevel() + "}").as(Level.class);
-//        level.addUsername(u.getUsername());
-//        levelCollection.update("{'level':" + u.getUserLevel()+ "}").with(level);
-        users.save(u);
-
-        user one = users.findOne("{'username':'" + u.getUsername() + "'}").as(user.class);
-        one.addScore(10);
-        users.update("{'username':'" + u.getUsername() + "'}").with(one);
+        user u = new user("test", "level", "test", "password");
+        Level level = levelCollection.findOne("{'level':" + u.getUserLevel() + "}").as(Level.class);
+        level.addUsername(u.getUsername());
+        levelCollection.update("{'level':" + u.getUserLevel()+ "}").with(level);
+//        users.save(u);
 //
-        return ok(Json.toJson(users.findOne("{'username':'" + u.getUsername() + "'}").as(user.class)));
+//        user one = users.findOne("{'username':'" + u.getUsername() + "'}").as(user.class);
+//        one.addScore(10);
+//        users.update("{'username':'" + u.getUsername() + "'}").with(one);
+//
+//        return ok(Json.toJson(users.findOne("{'username':'" + u.getUsername() + "'}").as(user.class)));
+        return ok(Json.toJson(levelCollection.findOne("{'level':" + u.getUserLevel() + "}").as(Level.class)));
     }
 
     public Result update(){
