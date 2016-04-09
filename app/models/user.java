@@ -106,6 +106,7 @@ public class user{
     public void setLevel(){
         double avgDist = (this.getAverageDistance())/1000;
         double avgSpeed = (this.getAverageSpeed())*3.6;
+
         int level = (int)((avgDist*avgSpeed)/10);
 
         if(level != this.userLevel){
@@ -113,7 +114,7 @@ public class user{
             this.userLevel = level;
         }else{
             this.userLevel = level;
-            this.userLevel = 0;
+            this.oldUserLevel = 0;
         }
     }
     public void updateScore(){

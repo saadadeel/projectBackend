@@ -69,7 +69,6 @@ public class Application extends Controller {
         MongoCollection users = jongo.getCollection("users");
         user one = users.findOne("{'username':'" + uName + "'}").as(user.class);
         leagueUsernames = one.getLeagueUsernames();
-        leagueUsernames.add(uName);
 
         for(String un: leagueUsernames){
             minimalUser mOne = users.findOne("{'username':'" + un + "'}").as(minimalUser.class);
@@ -88,9 +87,6 @@ public class Application extends Controller {
             Level oldLevel = levelCollection.findOne("{'level':" + one.oldUserLevel + "}").as(Level.class);
             oldLevel.deleteUsername(one.getUsername());
             levelCollection.update("{'level':" + one.oldUserLevel+ "}").with(oldLevel);
-
-            one.oldUserLevel = 0;
-            users.update("{'username':'" + one.getUsername()+ "'}").with(one);
         }
 
         return ok(Json.toJson(one));
@@ -155,6 +151,8 @@ public class Application extends Controller {
                     u.addLeagueUsernames(randomU);
                 }
             }
+            u.addLeagueUsernames(u.getUsername());
+
             users.update("{'username':'" + u.getUsername()+ "'}").with(u);
             return ok(Json.toJson(u));
         }
