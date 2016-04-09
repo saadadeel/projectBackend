@@ -92,6 +92,27 @@ public class Activities extends Controller {
         }
     }
 
+    public Result deleteRace(){
+        JsonNode json = request().body().asJson();
+        if(json == null) {
+            return badRequest("Expecting Json data");
+        } else {
+            String id= json.findPath("id").toString().replace("\"", "");//UUID.randomUUID().toString();
+            String compUsername = json.findPath("compUsername").toString().replace("\"", "");//"rTT";
+            String username = json.findPath("username").toString().replace("\"", "");//"rT14";
+
+            user one = users.findOne("{'username':'" + username + "'}").as(user.class);
+            one.deleteRace(id);
+            users.update("{'username':'" + one.getUsername() + "'}").with(one);
+
+            user two = users.findOne("{'username':'" + compUsername+ "'}").as(user.class);
+            two.deleteRace(id);
+            users.update("{'username':'" + two.getUsername() + "'}").with(two);
+
+            return ok(Json.toJson("deleted"));
+        }
+    }
+
     public Result racePortionCompleted(){
         JsonNode json = request().body().asJson();
         if(json == null) {

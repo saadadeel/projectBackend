@@ -87,6 +87,9 @@ public class Application extends Controller {
             Level oldLevel = levelCollection.findOne("{'level':" + one.oldUserLevel + "}").as(Level.class);
             oldLevel.deleteUsername(one.getUsername());
             levelCollection.update("{'level':" + one.oldUserLevel+ "}").with(oldLevel);
+
+            one.oldUserLevel = 0;
+            users.update("{'username':'" + one.getUsername()+ "'}").with(one);
         }
 
         return ok(Json.toJson(one));

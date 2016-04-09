@@ -45,6 +45,7 @@ GET   /activity/test                            @controllers.Activities.runTest(
 POST    /activity/acceptRace                    @controllers.Activities.setRace()
 GET   /activity/acceptRace                    @controllers.Activities.setRace()
 POST /activity/completeRace                     @controllers.Activities.racePortionCompleted()
+POST /activity/declineRace                     @controllers.Activities.deleteRace()
 
 # testing
 GET /league/test                                       @controllers.Application.addTestUser()

@@ -75,6 +75,13 @@ public class user{
             }
         }
     }
+    public void deleteRace(String id){
+        for (Races r : this.races) {
+            if (r.id.equals(id)) {
+                this.races.remove(this.races.indexOf(r));
+            }
+        }
+    }
 
     /////Runs////////
 
