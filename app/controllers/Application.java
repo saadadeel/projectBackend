@@ -83,11 +83,14 @@ public class Application extends Controller {
         if(one.oldUserLevel!=0){
             Level level = levelCollection.findOne("{'level':" + one.getUserLevel() + "}").as(Level.class);
             level.addUsername(one.getUsername());
-            levelCollection.save(level);
+            levelCollection.update("{'level':'" + one.getUserLevel()+ "'}").with(level);
 
             Level oldLevel = levelCollection.findOne("{'level':" + one.oldUserLevel + "}").as(Level.class);
             oldLevel.deleteUsername(one.getUsername());
-            levelCollection.save(oldLevel);
+            levelCollection.update("{'level':'" + one.oldUserLevel+ "'}").with(oldLevel);
+
+            one.oldUserLevel = 0;
+            users.update("{'username':'" + one.getUsername()+ "'}").with(one);
         }
 
         return ok(Json.toJson(one));
@@ -150,7 +153,6 @@ public class Application extends Controller {
                     u.addLeagueUsernames(randomU);
                 }
             }
-
             users.update("{'username':'" + u.getUsername()+ "'}").with(u);
             return ok(Json.toJson(u));
         }

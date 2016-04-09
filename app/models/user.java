@@ -27,7 +27,7 @@ public class user{
     public ArrayList<String> leagueUsernames = new ArrayList<String>();
     public int userScore;
     public int userLevel;
-    public int oldUserLevel;
+    public int oldUserLevel = 0;
     public double averageDistance;
     public double averageSpeed;
 

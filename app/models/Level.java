@@ -11,6 +11,9 @@ public class Level {
     public ArrayList<String> usernames = new ArrayList<String>();
 
     public Level(){}
+    public Level(int level){
+        this.level = level;
+    }
 
     public void deleteUsername(String u){
         usernames.remove(u);
