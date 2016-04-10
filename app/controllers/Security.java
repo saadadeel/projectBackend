@@ -37,7 +37,7 @@ public class Security extends Controller {
             password = password.replaceAll("^\"|\"$", "");
 
             if(one.getPassword().equals(password)) {
-                return ok("Hello " + username + password);
+                return ok(Json.toJson(one));
             } else {
                 return badRequest("username password do not match" + one.getPassword() + " " + one.getFirstName() + " " + password);
             }
