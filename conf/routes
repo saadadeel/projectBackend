@@ -49,6 +49,7 @@ POST /activity/declineRace                     @controllers.Activities.deleteRac
 
 # testing
 GET /league/test                                       @controllers.Application.addTestUser()
+GET /activity/declineRace                              @controllers.Activities.deleteRace()
 
 # updating
 POST /refresh                                       @controllers.Application.update()

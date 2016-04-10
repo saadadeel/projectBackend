@@ -76,10 +76,16 @@ public class user{
         }
     }
     public void deleteRace(String id){
+        int index = 0;
+        boolean found = false;
         for (Races r : this.races) {
             if (r.id.equals(id)) {
-                this.races.remove(this.races.indexOf(r));
+                index = this.races.indexOf(r);
+                found = true;
             }
+        }
+        if(found){
+            this.races.remove(index);
         }
     }
 
