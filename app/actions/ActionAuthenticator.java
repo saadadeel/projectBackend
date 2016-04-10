@@ -11,7 +11,7 @@ import play.mvc.*;
 import java.io.IOException;
 
 public class ActionAuthenticator extends Action.Simple {
-    private static final String AUTHORIZATION = "authorization";
+    private static final String AUTHORIZATION = "Authorization";
     private static final String WWW_AUTHENTICATE = "WWW-Authenticate";
     private static final String REALM = "Basic realm=\"Your Realm Here\"";
 
