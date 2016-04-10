@@ -1,5 +1,6 @@
 package controllers;
 
+import actions.ActionAuthenticator;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.google.gson.Gson;
 import com.mongodb.DB;
@@ -61,6 +62,7 @@ public class Application extends Controller {
         return ok(Json.toJson(tester));
     }
 
+    @With(ActionAuthenticator.class)
     public Result userDetails(String uName) throws ParseException, IOException {
 
         ArrayList<String> leagueUsernames = new ArrayList<String>();
