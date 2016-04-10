@@ -147,6 +147,8 @@ public class Activities extends Controller {
             }else{
                 compRace.status = "active";
                 competitor.updateRaces(compRace);
+                race.result = "Competitor to complete race";
+                u.updateRaces(race);
             }
             users.update("{'username':'" + u.getUsername()+ "'}").with(u);
             users.update("{'username':'" + competitor.getUsername()+ "'}").with(competitor);

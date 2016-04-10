@@ -42,7 +42,7 @@ public class RaceReferre{
         this.challengedPoints = 5;
 
         if(this.challenge.getUserLevel()<this.challenger.getUserLevel()){
-            this.challengedPoints = 5 + (levelDifference * 2);
+            this.challengedPoints = 5 + ((levelDifference*-1) * 2);
 
         }else if (this.challenge.getUserLevel()>this.challenger.getUserLevel()){
             this.challengerPoints = 5 + (levelDifference * 2);
