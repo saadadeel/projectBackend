@@ -24,7 +24,6 @@ public class ActionAuthenticator extends Action.Simple {
             Jongo jongo = new Jongo(dbc);
             MongoCollection users = jongo.getCollection("users");
             user user = users.findOne("{'username':'" + username + "'}").as(user.class);
-//            user user = user.find.where().eq("authToken", token).findUnique();
             if (user != null && user.password.equals(token)) {
                 ctx.request().setUsername(user.username);
                 return delegate.call(ctx);
@@ -33,28 +32,6 @@ public class ActionAuthenticator extends Action.Simple {
         Result unauthorized = Results.unauthorized("unauthorized");
         return F.Promise.pure(unauthorized);
     }
-
-//    @Override
-//    public String getUsername(Http.Context ctx){
-//        String token = getTokenFromHeader(ctx);
-//        String username = username(ctx);
-//        if (token != null) {
-//            DB dbc = new MongoClient("178.62.68.172", 27017).getDB("competifitDB");
-//            Jongo jongo = new Jongo(dbc);
-//            MongoCollection users = jongo.getCollection("users");
-//            user u = users.findOne("{'username':" + username + "}", "{'password':" + token + "}").as(user.class);//user.find.where().eq("authToken", token).findUnique();
-//
-//            if(u != null) {
-//                return u.getUsername();
-//            }
-//        }
-//        return null;
-//    }
-
-//    @Override
-//    public Result onUnauthorized(Http.Context context) {
-//        return super.onUnauthorized(context);
-//    }
 
     private String getTokenFromHeader(Http.Context ctx) throws IOException {
         String authHeader = ctx.request().getHeader(AUTHORIZATION);

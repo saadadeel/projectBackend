@@ -1,5 +1,6 @@
 package controllers;
 
+import actions.ActionAuthenticator;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.google.gson.Gson;
 import com.mongodb.DB;
@@ -13,6 +14,7 @@ import org.jongo.MongoCollection;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.mvc.With;
 import play.twirl.api.Content;
 
 import java.util.ArrayList;
@@ -21,6 +23,8 @@ import java.util.UUID;
 /**
  * Created by saadadeel on 21/02/2016.
  */
+
+@With(ActionAuthenticator.class)
 public class Activities extends Controller {
     DB dbc = new MongoClient("178.62.68.172", 27017).getDB("competifitDB");
     Jongo jongo = new Jongo(dbc);
