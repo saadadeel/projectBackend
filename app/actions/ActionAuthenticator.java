@@ -23,9 +23,9 @@ public class ActionAuthenticator extends Action.Simple {
             DB dbc = new MongoClient("178.62.68.172", 27017).getDB("competifitDB");
             Jongo jongo = new Jongo(dbc);
             MongoCollection users = jongo.getCollection("users");
-            user user = users.findOne("{'username':" + username + "}", "{'password':" + token + "}").as(user.class);
+            user user = users.findOne("{'username':'" + username + "'}").as(user.class);
 //            user user = user.find.where().eq("authToken", token).findUnique();
-            if (user != null) {
+            if (user != null && user.password.equals(token)) {
                 ctx.request().setUsername(user.username);
                 return delegate.call(ctx);
             }
