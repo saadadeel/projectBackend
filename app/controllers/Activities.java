@@ -118,11 +118,6 @@ public class Activities extends Controller {
         if(json == null) {
             return badRequest("Expecting Json data");
         } else {
-//            String id= json.findPath("id").toString();
-//            String compUsername = json.findPath("compUsername").toString();
-//            String username = json.findPath("username").toString();
-//            int timeDone;
-
             Races race= new Gson().fromJson(String.valueOf(json), Races.class);
             Races compRace = null;
             user u = null;

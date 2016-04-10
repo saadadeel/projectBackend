@@ -71,8 +71,8 @@ public class RaceReferre{
             two.isWinner(true);
             challenge.addScore(two.getPoints());
         } else if (one.challengeComplete && two.challengeComplete){
-            double perc1 = one.challengedSpeed/oneCS;
-            double perc2 = two.challengedSpeed/twoCS;
+            double perc1 = oneCS/one.challengedSpeed;
+            double perc2 = twoCS/two.challengedSpeed;
             if(perc1>perc2){
                 one.isWinner(true);
                 two.isWinner(false);
