@@ -22,7 +22,7 @@ import play.libs.Json;
 
 import static com.mongodb.client.model.Sorts.ascending;
 
-@With(ActionAuthenticator.class)
+
 public class Application extends Controller {
     DB dbc = new MongoClient("178.62.68.172", 27017).getDB("competifitDB");
     Jongo jongo = new Jongo(dbc);
@@ -63,6 +63,7 @@ public class Application extends Controller {
         return ok(Json.toJson(tester));
     }
 
+    @With(ActionAuthenticator.class)
     public Result userDetails(String uName) throws ParseException, IOException {
 
         ArrayList<String> leagueUsernames = new ArrayList<String>();
@@ -97,6 +98,7 @@ public class Application extends Controller {
         return ok(Json.toJson(one));
     }
 
+    @With(ActionAuthenticator.class)
     public Result minimalUserDetails(String uName) throws ParseException, IOException {
 
         MongoCollection users = jongo.getCollection("users");
