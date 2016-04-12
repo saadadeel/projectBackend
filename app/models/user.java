@@ -93,8 +93,6 @@ public class user{
 
     public ArrayList<Run> getRuns(){return this.runs;}
     public void addRun(Run r){
-//        this.runs.add(0, r);
-//        this.updateScore();
         this.runs.add(0, r);
         r.setScore(this);
 

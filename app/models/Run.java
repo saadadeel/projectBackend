@@ -85,7 +85,7 @@ public class Run {
         }
         if (userRuns != null && userRuns.size() > 2) {
             for (int i = 0; i < counter; i++) {
-                if (userRuns.get(i).getDistance() > userRuns.get(i + 1).getDistance() && userRuns.get(i).getSpeed() < userRuns.get(i + 1).getSpeed()) {
+                if (userRuns.get(i).getDistance() > userRuns.get(i + 1).getDistance() && userRuns.get(i).getSpeed() > userRuns.get(i + 1).getSpeed()) {
                     System.out.println("/////// here");
                     System.out.println(this.score);
                     this.score += 4;
