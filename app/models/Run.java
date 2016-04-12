@@ -22,7 +22,7 @@ public class Run {
         this.distance = d;
         this.time = t;
         this.speed = d/t;
-        this.date = getDate();
+//        this.date = getDate();
     }
 
     public Run(Double d, Double speed, String u){
@@ -49,9 +49,7 @@ public class Run {
     }
 
     public String getDate(){
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Date date = new Date();
-        return dateFormat.format(date);
+        return this.date;
     }
 
     public String getUsername(){
