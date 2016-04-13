@@ -21,6 +21,7 @@ public class Level {
     public void addUsername(String u){
         usernames.add(u);
     }
+    public ArrayList<String> getUsernames(){return this.usernames;}
 
     public ArrayList<String> findRandom(int max){
         ArrayList<String> randomUsernames = new ArrayList<String>();

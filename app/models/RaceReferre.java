@@ -48,8 +48,8 @@ public class RaceReferre{
             this.challengerPoints = 5 + (levelDifference * 2);
         }
 
-        this.challengerMiles = this.challenge.getAverageDistance()/2;
-        this.challengeeMiles = this.challenger.getAverageDistance()/2;
+        this.challengerMiles = this.challenge.getAverageDistance();
+        this.challengeeMiles = this.challenger.getAverageDistance();
         this.challengerSpeed = speed1;
         this.challengeeSpeed = speed;
 

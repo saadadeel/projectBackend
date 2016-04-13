@@ -71,16 +71,6 @@ public class Application extends Controller {
 
         MongoCollection users = jongo.getCollection("users");
         user one = users.findOne("{'username':'" + uName + "'}").as(user.class);
-        leagueUsernames = one.getLeagueUsernames();
-
-        for(String un: leagueUsernames){
-            minimalUser mOne = users.findOne("{'username':'" + un + "'}").as(minimalUser.class);
-            if(mOne!=null){
-                league.add(mOne);
-            }
-        }
-        Collections.sort(league);
-        one.setleague(league);
 
         if(one.oldUserLevel!=0){
             Level level = levelCollection.findOne("{'level':" + one.getUserLevel() + "}").as(Level.class);
@@ -94,6 +84,18 @@ public class Application extends Controller {
             one.oldUserLevel = 0;
             users.update("{'username':'" + one.getUsername()+ "'}").with(one);
         }
+
+        Level userLevel = levelCollection.findOne("{'level':" + (one.getUserLevel()) + "}").as(Level.class);
+        leagueUsernames = userLevel.getUsernames();
+
+        for(String un: leagueUsernames){
+            minimalUser mOne = users.findOne("{'username':'" + un + "'}").as(minimalUser.class);
+            if(mOne!=null){
+                league.add(mOne);
+            }
+        }
+        Collections.sort(league);
+        one.setleague(league);
 
         return ok(Json.toJson(one));
     }
@@ -131,36 +133,36 @@ public class Application extends Controller {
 
             //////Set up league/////
 
-            if(u.getUserLevel()<=2) {
-                level = levelCollection.findOne("{'level':" + (u.getUserLevel() - 1) + "}").as(Level.class);
-                randomUsernames = level.findRandom(6);
-                for (int i = 0; i < randomUsernames.size(); i++) {
-                    String randomU = randomUsernames.get(i);
-                    u.addLeagueUsernames(randomU);
-                }
-                level = levelCollection.findOne("{'level':" + (u.getUserLevel() + 1) + "}").as(Level.class);
-                randomUsernames = level.findRandom(3);
-                for (int i = 0; i < randomUsernames.size(); i++) {
-                    String randomU = randomUsernames.get(i);
-                    u.addLeagueUsernames(randomU);
-                }
-            }else{
-                level = levelCollection.findOne("{'level':'" + (u.getUserLevel()) + "'}").as(Level.class);
-                randomUsernames = level.findRandom(9);
-                for(int i = 0; i < randomUsernames.size(); i++){
-                    String randomU = randomUsernames.get(i);
-                    u.addLeagueUsernames(randomU);
-                }
-                level = levelCollection.findOne("{'level':'" + (u.getUserLevel() + 1) + "'}").as(Level.class);
-                randomUsernames = level.findRandom(3);
-                for(int i = 0; i < randomUsernames.size(); i++){
-                    String randomU = randomUsernames.get(i);
-                    u.addLeagueUsernames(randomU);
-                }
-            }
-            u.addLeagueUsernames(u.getUsername());
+//            if(u.getUserLevel()<=2) {
+//                level = levelCollection.findOne("{'level':" + (u.getUserLevel() - 1) + "}").as(Level.class);
+//                randomUsernames = level.findRandom(6);
+//                for (int i = 0; i < randomUsernames.size(); i++) {
+//                    String randomU = randomUsernames.get(i);
+//                    u.addLeagueUsernames(randomU);
+//                }
+//                level = levelCollection.findOne("{'level':" + (u.getUserLevel() + 1) + "}").as(Level.class);
+//                randomUsernames = level.findRandom(3);
+//                for (int i = 0; i < randomUsernames.size(); i++) {
+//                    String randomU = randomUsernames.get(i);
+//                    u.addLeagueUsernames(randomU);
+//                }
+//            }else{
+//                level = levelCollection.findOne("{'level':'" + (u.getUserLevel()) + "'}").as(Level.class);
+//                randomUsernames = level.findRandom(9);
+//                for(int i = 0; i < randomUsernames.size(); i++){
+//                    String randomU = randomUsernames.get(i);
+//                    u.addLeagueUsernames(randomU);
+//                }
+//                level = levelCollection.findOne("{'level':'" + (u.getUserLevel() + 1) + "'}").as(Level.class);
+//                randomUsernames = level.findRandom(3);
+//                for(int i = 0; i < randomUsernames.size(); i++){
+//                    String randomU = randomUsernames.get(i);
+//                    u.addLeagueUsernames(randomU);
+//                }
+//            }
+//            u.addLeagueUsernames(u.getUsername());
 
-            users.update("{'username':'" + u.getUsername()+ "'}").with(u);
+//            users.update("{'username':'" + u.getUsername()+ "'}").with(u);
             return ok(Json.toJson(u));
         }
     }
