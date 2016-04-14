@@ -117,8 +117,11 @@ public class user{
     public void setLevel(){
         double avgDist = (this.getAverageDistance())/1000;
         double avgSpeed = (this.getAverageSpeed())*3.6;
-
         int level = (int)((avgDist*avgSpeed)/10);
+
+        if(level<1){
+            level = 1;
+        }
 
         if(level != this.userLevel){
             this.oldUserLevel = this.userLevel;

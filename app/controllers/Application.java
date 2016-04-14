@@ -122,14 +122,21 @@ public class Application extends Controller {
             return badRequest("Expecting Json data");
         } else {
             user u1 = new Gson().fromJson(String.valueOf(json), user.class);
+
             user u = new user(u1.getFirstName(), u1.getUsername(), u1.lastName, u1.getPassword());
             u.setUserLevel(u1.getUserLevel());
+            user one = users.findOne("{'username':'" + u.getUsername() + "'}").as(user.class);
+            if(one==null){
+                Level level = levelCollection.findOne("{'level':" + u.getUserLevel() + "}").as(Level.class);
+                level.addUsername(u.getUsername());
+                levelCollection.update("{'level':" + u.getUserLevel()+ "}").with(level);
+                users.save(u);
+                return ok(Json.toJson(u));
+            }else{
+                return ok("user exists");
+            }
 
-            Level level = levelCollection.findOne("{'level':" + u.getUserLevel() + "}").as(Level.class);
-            level.addUsername(u.getUsername());
-            levelCollection.update("{'level':" + u.getUserLevel()+ "}").with(level);
 
-            users.save(u);
 
             //////Set up league/////
 
@@ -163,23 +170,41 @@ public class Application extends Controller {
 //            u.addLeagueUsernames(u.getUsername());
 
 //            users.update("{'username':'" + u.getUsername()+ "'}").with(u);
-            return ok(Json.toJson(u));
         }
     }
 
     public Result addTestUser() {
-        user u = new user("test", "level", "test", "password");
-        Level level = levelCollection.findOne("{'level':" + u.getUserLevel() + "}").as(Level.class);
-        level.addUsername(u.getUsername());
-        levelCollection.update("{'level':" + u.getUserLevel()+ "}").with(level);
-//        users.save(u);
+        ArrayList<String> names = new ArrayList<String>();
+        names.add("steve");
+        names.add("chris");
+        names.add("michael");
+        names.add("daniel");
+        names.add("henry");
+        names.add("usainBolt");
+        names.add("thom");
+        names.add("jonny");
+        names.add("ed");
+        names.add("phil");
+        names.add("colin");
+        names.add("chiara");
+        names.add("runner");
+        names.add("compete");
+
+
+//        Level l = new Level(4);
+//        levelCollection.save(l);
 //
-//        user one = users.findOne("{'username':'" + u.getUsername() + "'}").as(user.class);
-//        one.addScore(10);
-//        users.update("{'username':'" + u.getUsername() + "'}").with(one);
+//            for (int i = 0; i < names.size(); i++) {
+//                user u = new user("firstName", names.get(i) + 4, "lastName", "password");
+//                Run run = new Run(4000.0, 2.778, u.getUsername());
+//                u.addRun(run);
 //
-//        return ok(Json.toJson(users.findOne("{'username':'" + u.getUsername() + "'}").as(user.class)));
-        return ok(Json.toJson(levelCollection.findOne("{'level':" + u.getUserLevel() + "}").as(Level.class)));
+//                Level level = levelCollection.findOne("{'level':4}").as(Level.class);
+//                level.addUsername(u.getUsername());
+//                levelCollection.update("{'level':4}").with(level);
+//            }
+
+        return ok(Json.toJson(levelCollection.findOne("{'level':1}").as(Level.class)));
     }
 
     public Result update(){
