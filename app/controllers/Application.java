@@ -68,16 +68,24 @@ public class Application extends Controller {
 
         ArrayList<String> leagueUsernames = new ArrayList<String>();
         ArrayList<minimalUser> league = new ArrayList<minimalUser>();
+        boolean isDuplicate = false;
 
         MongoCollection users = jongo.getCollection("users");
         user one = users.findOne("{'username':'" + uName + "'}").as(user.class);
+        Level level = levelCollection.findOne("{'level':" + one.getUserLevel() + "}").as(Level.class);
+        Level oldLevel = levelCollection.findOne("{'level':" + one.oldUserLevel + "}").as(Level.class);
 
+        for(String duplicate:level.getUsernames()){
+            if(duplicate.equals(one.getUsername())){
+                isDuplicate = true;
+            }
+        }
         if(one.oldUserLevel!=0){
-            Level level = levelCollection.findOne("{'level':" + one.getUserLevel() + "}").as(Level.class);
-            level.addUsername(one.getUsername());
-            levelCollection.update("{'level':" + one.getUserLevel()+ "}").with(level);
+            if(!isDuplicate){
+                level.addUsername(one.getUsername());
+                levelCollection.update("{'level':" + one.getUserLevel()+ "}").with(level);
+            }
 
-            Level oldLevel = levelCollection.findOne("{'level':" + one.oldUserLevel + "}").as(Level.class);
             oldLevel.deleteUsername(one.getUsername());
             levelCollection.update("{'level':" + one.oldUserLevel+ "}").with(oldLevel);
 
