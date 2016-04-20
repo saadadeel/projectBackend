@@ -60,15 +60,16 @@ public class Security extends Controller {
 
     public Result newAuthenticate(String args){
 
-        String[] params = args.split(",");
-        String username = params[0]+"\"";
-        String password = params[1];
+        String[] params = args.split(":");
+        String username = params[0].replace("\"","");
+        String password = params[1].replace("\"","");
 
         DB dbc = new MongoClient("178.62.68.172", 27017).getDB("competifitDB");
         Jongo jongo = new Jongo(dbc);
 
         MongoCollection users = jongo.getCollection("users");
-        user one = users.findOne("{'username':" + username + "}").as(user.class);
+        user one = users.findOne("{'username':'" + username + "'}").as(user.class);
+
 
         password = password.replaceAll("^\"|\"$", "");
 

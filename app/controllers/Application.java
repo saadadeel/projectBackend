@@ -14,11 +14,12 @@ import com.mongodb.MongoClient;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
+import java.util.*;
 
 import play.libs.Json;
+import akka.actor.*;
+import play.libs.F.*;
+import play.mvc.WebSocket;
 
 import static com.mongodb.client.model.Sorts.ascending;
 
@@ -28,6 +29,8 @@ public class Application extends Controller {
     Jongo jongo = new Jongo(dbc);
     MongoCollection users = jongo.getCollection("users");
     MongoCollection levelCollection = jongo.getCollection("userByLevel");
+    Timer timer = new Timer();
+    boolean gotUser = false;
 
     public Result index() {
         return ok(index.render("Saad Adeel"));
@@ -104,6 +107,7 @@ public class Application extends Controller {
         }
         Collections.sort(league);
         one.setleague(league);
+        dbc.getMongo().close();
 
         return ok(Json.toJson(one));
     }
@@ -216,34 +220,84 @@ public class Application extends Controller {
     }
 
     public Result update(){
-        ArrayList<String> leagueUsernames = new ArrayList<String>();
-        ArrayList<minimalUser> league = new ArrayList<minimalUser>();
-        JsonNode json = request().body().asJson();
-        if(json == null) {
-            return badRequest("Expecting Json data");
-        } else {
-            user dataFromClient = new Gson().fromJson(String.valueOf(json), user.class);
-            user one = users.findOne("{'username':'" + dataFromClient.getUsername() + "'}").as(user.class);
-
-           ArrayList<Run> runData = dataFromClient.getRuns();
-            ArrayList<Races> races = dataFromClient.getRaces();
-
-            users.update("{'username':'" + one.getUsername() + "'}").with(one);
-            for(Races race : races){
-                if(race.isComplete){
-                    one.addRace(race);
-                    users.update("{'username':'" + one.getUsername() + "'}").with(one);
-                }
-            }
-            leagueUsernames = one.getLeagueUsernames();
-            for(String un: leagueUsernames){
-                minimalUser mOne = users.findOne("{'username':'" + un + "'}").as(minimalUser.class);
-                league.add(mOne);
-            }
-            Collections.sort(league);
-            one.setleague(league);
-
-            return ok(Json.toJson(one));
-        }
+//        ArrayList<String> leagueUsernames = new ArrayList<String>();
+//        ArrayList<minimalUser> league = new ArrayList<minimalUser>();
+//        JsonNode json = request().body().asJson();
+//        if(json == null) {
+//            return badRequest("Expecting Json data");
+//        } else {
+//            user dataFromClient = new Gson().fromJson(String.valueOf(json), user.class);
+//            user one = users.findOne("{'username':'" + dataFromClient.getUsername() + "'}").as(user.class);
+//
+//           ArrayList<Run> runData = dataFromClient.getRuns();
+//            ArrayList<Races> races = dataFromClient.getRaces();
+//
+//            users.update("{'username':'" + one.getUsername() + "'}").with(one);
+//            for(Races race : races){
+//                if(race.isComplete){
+//                    one.addRace(race);
+//                    users.update("{'username':'" + one.getUsername() + "'}").with(one);
+//                }
+//            }
+//            leagueUsernames = one.getLeagueUsernames();
+//            for(String un: leagueUsernames){
+//                minimalUser mOne = users.findOne("{'username':'" + un + "'}").as(minimalUser.class);
+//                league.add(mOne);
+//            }
+//            Collections.sort(league);
+//            one.setleague(league);
+//
+//            return ok(Json.toJson(one));
+//        }
+        return ok("hello");
     }
+
+//   public Result socket(String uName) {
+//
+//       user oldUser = getUser(uName);
+//
+//       TimerTask secondCounter = new TimerTask() {
+//           @Override
+//           public void run() {
+//               user user = getUser(uName);
+//                if(user.getRaces() == oldUser.getRaces() && user.getLeague() == oldUser.getLeague()){
+//                    System.out.println("HELLOOOO");
+//                }else{
+//                    System.out.println("WHATTT");
+//                    gotUser = true;
+//                }
+//
+//           }
+//       };
+//       timer.scheduleAtFixedRate(secondCounter, 10 * 1000, 10 * 1000);
+//
+//       return ok(Json.toJson(getUser(uName)));
+//   }
+//
+//    public user getUser(String uName){
+//        ArrayList<String> leagueUsernames = new ArrayList<String>();
+//        ArrayList<minimalUser> league = new ArrayList<minimalUser>();
+//
+//        user user = new user();
+//        user oldUser = new user();
+//
+//        boolean isDuplicate = false;
+//
+//        MongoCollection users = jongo.getCollection("users");
+//        user = users.findOne("{'username':'" + uName + "'}").as(user.class);
+//
+//        Level userLevel = levelCollection.findOne("{'level':" + (user.getUserLevel()) + "}").as(Level.class);
+//        leagueUsernames = userLevel.getUsernames();
+//
+//        for(String un: leagueUsernames){
+//            minimalUser mOne = users.findOne("{'username':'" + un + "'}").as(minimalUser.class);
+//            if(mOne!=null){
+//                league.add(mOne);
+//            }
+//        }
+//        Collections.sort(league);
+//        user.setleague(league);
+//        return user;
+//    }
+
 }

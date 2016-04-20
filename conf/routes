@@ -21,7 +21,7 @@ GET     /serverTest                             @controllers.Application.serverT
 POST    /login/submit                            @controllers.Security.Authenticate()
 
 # User requests Authentication and Authorization to access the information of the user
-GET    /login/submit:args                       @controllers.Security.newAuthenticate(args)
+GET    /login/submit/:args                       @controllers.Security.newAuthenticate(args)
 
 # secTest
 GET     /login/test                             @controllers.Security.test()
@@ -53,5 +53,7 @@ GET /activity/declineRace                              @controllers.Activities.d
 
 # updating
 POST /refresh                                       @controllers.Application.update()
+GET /refresh                                       @controllers.Application.update()
+
 
 
