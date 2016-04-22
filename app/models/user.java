@@ -34,12 +34,13 @@ public class user{
     public user(){
     }
 
-    public user(String fn, String un, String ln, String pw){
+    public user(String fn, String un, String ln, String pw, int initialLevel){
         this.firstName = fn;
         this.username = un;
         this.lastName = ln;
         this.password = pw;
-    }
+        this.userLevel = initialLevel;
+     }
 
     public String getPassword(){return this.password;}
     public String getFirstName(){return this.firstName;}

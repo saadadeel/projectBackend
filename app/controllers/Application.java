@@ -54,16 +54,16 @@ public class Application extends Controller {
 
     public Result serverTest() throws ParseException, IOException {
 
-        DB dbc = new MongoClient("178.62.68.172", 27017).getDB("competifitDB");
-        Jongo jongo = new Jongo(dbc);
-
-        MongoCollection users = jongo.getCollection("users");
-        //user one = users.findOne("{'First Name': 'Saad'}").as(user.class);
-        user tester = new user("Adam", "aDriver", "Driver", "password");
-
-        users.save(tester);
-
-        return ok(Json.toJson(tester));
+//        DB dbc = new MongoClient("178.62.68.172", 27017).getDB("competifitDB");
+//        Jongo jongo = new Jongo(dbc);
+//
+//        MongoCollection users = jongo.getCollection("users");
+//        //user one = users.findOne("{'First Name': 'Saad'}").as(user.class);
+//        user tester = new user("Adam", "aDriver", "Driver", "password");
+//
+//        users.save(tester);
+//
+        return ok();
     }
 
     @With(ActionAuthenticator.class)
@@ -135,10 +135,7 @@ public class Application extends Controller {
         } else {
             user u1 = new Gson().fromJson(String.valueOf(json), user.class);
 
-            user u = new user(u1.getFirstName(), u1.getUsername(), u1.lastName, u1.getPassword());
-            u.setUserLevel(u1.getUserLevel());
-            u.averageDistance = u1.getAverageDistance();
-            u.averageSpeed = u1.getAverageSpeed();
+            user u = new user(u1.getFirstName(), u1.getUsername(), u1.lastName, u1.getPassword(),u1.getUserLevel());
 
             user one = users.findOne("{'username':'" + u.getUsername() + "'}").as(user.class);
             if(one==null){
