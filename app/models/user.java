@@ -39,7 +39,6 @@ public class user{
         this.username = un;
         this.lastName = ln;
         this.password = pw;
-        this.userLevel = 4;
     }
 
     public String getPassword(){return this.password;}

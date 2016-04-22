@@ -151,8 +151,6 @@ public class Application extends Controller {
                 return ok("user exists");
             }
 
-
-
             //////Set up league/////
 
 //            if(u.getUserLevel()<=2) {
