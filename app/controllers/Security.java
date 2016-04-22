@@ -70,7 +70,6 @@ public class Security extends Controller {
         MongoCollection users = jongo.getCollection("users");
         user one = users.findOne("{'username':'" + username + "'}").as(user.class);
 
-
         password = password.replaceAll("^\"|\"$", "");
 
         if(one.getPassword().equals(password)) {
