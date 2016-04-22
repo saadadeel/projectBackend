@@ -189,7 +189,7 @@ public class Activities extends Controller {
             one.addRun(run);
             users.update("{'username':'" + run.getUsername()+ "'}").with(one);
 
-            return ok(Json.toJson("cooool"));
+            return ok(Json.toJson("run added"));
         }
     }
 

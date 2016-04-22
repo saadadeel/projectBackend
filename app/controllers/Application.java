@@ -137,6 +137,9 @@ public class Application extends Controller {
 
             user u = new user(u1.getFirstName(), u1.getUsername(), u1.lastName, u1.getPassword());
             u.setUserLevel(u1.getUserLevel());
+            u.averageDistance = u1.getAverageDistance();
+            u.averageSpeed = u1.getAverageSpeed();
+
             user one = users.findOne("{'username':'" + u.getUsername() + "'}").as(user.class);
             if(one==null){
                 Level level = levelCollection.findOne("{'level':" + u.getUserLevel() + "}").as(Level.class);
