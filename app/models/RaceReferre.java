@@ -63,23 +63,23 @@ public class RaceReferre{
         two.status = "complete";
 
         if(one.challengeComplete && !two.challengeComplete){
-            one.isWinner(true);
-            two.isWinner(false);
+            one.setIsWinner(true);
+            two.setIsWinner(false);
             challenger.addScore(one.getPoints());
         }else if(!one.challengeComplete && two.challengeComplete){
-            one.isWinner(false);
-            two.isWinner(true);
+            one.setIsWinner(false);
+            two.setIsWinner(true);
             challenge.addScore(two.getPoints());
         } else if (one.challengeComplete && two.challengeComplete || !one.challengeComplete && !two.challengeComplete){
             double perc1 = oneCS/one.challengedSpeed;
             double perc2 = twoCS/two.challengedSpeed;
             if(perc1>perc2){
-                one.isWinner(true);
-                two.isWinner(false);
+                one.setIsWinner(true);
+                two.setIsWinner(false);
                 challenger.addScore(one.getPoints());
             }else{
-                one.isWinner(false);
-                two.isWinner(true);
+                one.setIsWinner(false);
+                two.setIsWinner(true);
                 challenge.addScore(two.getPoints());
             }
         }

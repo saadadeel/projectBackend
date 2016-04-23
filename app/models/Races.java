@@ -11,16 +11,13 @@ public class Races {
     public String competitorUsername;
 
     @JsonProperty("challengedMiles")
-    public double challengedMiles;
+    public double challengedDist;
 
     @JsonProperty("challengedSpeed")
     public double challengedSpeed;
     public Boolean isComplete = false;
-    public double completedMiles;
     public double completedSpeed;
 
-    @JsonProperty("speedChallengeCompleted")
-    public double speedChallengeCompleted;
     public String result;
     public int points;
     public int compUserLevel;
@@ -39,35 +36,20 @@ public class Races {
             this.id = st;
         }
 
-        public void challengeAccepted(int miles, Double speed){
-            this.status = "active";
-            this.challengedMiles = miles;
-            this.challengedSpeed = speed;
-        }
-
     public String getId(){return this.id;}
-    public void setChallengedMiles(double m){ this.challengedMiles = m;}
+    public void setChallengedDist(double m){ this.challengedDist = m;}
     public void setChallengedSpeed(double s){ this.challengedSpeed = s;}
     public void setPoints(int p){this.points = p;}
     public int getPoints(){return this.points;}
-    public void isWinner(Boolean result){
+    public void setIsWinner(Boolean result){
         if(result){
-            this.result = "winner";
+            this.result = "WON";
         }else{
-            this.result = "loser";
+            this.result = "LOST";
         }
     }
     public void setCompUserLevel(int a){
         this.compUserLevel = a;
     }
 
-//
-//        public void challengeCompleted(int completedMiles, int completedSpeed){
-//            this.status = "complete";
-//            if(completedMiles>=this.challengedMiles){
-//                this.isChallengeMet = true;
-//            }else{
-//                this.isChallengeMet = false;
-//            }
-//        }
     }

@@ -19,8 +19,10 @@ public class user{
     public String lastName;
     public String username;
     public String password;
+
     @JsonProperty("races")
     public ArrayList<Races> races = new ArrayList<Races>();
+    
     @JsonProperty("runs")
     public ArrayList<Run> runs = new ArrayList<Run>();
     public ArrayList<minimalUser> league = new ArrayList<minimalUser>();
@@ -44,6 +46,7 @@ public class user{
 
     public String getPassword(){return this.password;}
     public String getFirstName(){return this.firstName;}
+    public String getLastName(){return this.firstName;}
     public String getUsername(){return this.username;}
     public double getAverageDistance(){return this.averageDistance;}
     public double getAverageSpeed(){return this.averageSpeed;}
@@ -51,7 +54,6 @@ public class user{
 
     /////Races////////
 
-    public void challengeSent(String compUsername){ races.add(new Races(compUsername));}
     public Races findRace(String id){
         for (Races race : this.races) {
             if (race.getId() == id) {
@@ -60,13 +62,10 @@ public class user{
         }
         return null;
     }
-    public void setRace(String cUsername){races.add(new Races(cUsername));}
-    public void acceptRace(String cUsername){}
     public ArrayList<Races> getRaces(){return this.races;}
 
     public void addRace(Races races){
         this.races.add(0, races);
-//        updateScore();
     }
     public void updateRaces(Races race){
         for (Races r : this.races) {
