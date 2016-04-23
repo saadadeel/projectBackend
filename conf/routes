@@ -21,10 +21,7 @@ GET     /serverTest                             @controllers.Application.serverT
 POST    /login/submit                            @controllers.Security.Authenticate()
 
 # User requests Authentication and Authorization to access the information of the user
-GET    /login/submit/:args                       @controllers.Security.newAuthenticate(args)
-
-# secTest
-GET     /login/test                             @controllers.Security.test()
+GET    /login/:args                             @controllers.Security.newAuthenticate(args)
 
 # Get User Data
 GET     /user/:un                               @controllers.Application.userDetails(un)
