@@ -36,7 +36,6 @@ POST     /user                                  @controllers.Application.signIn(
 POST    /user/:un/run                           @controllers.Activities.recordRun(un)
 
 # Running
-GET      /testActivities                        @controllers.Activities.setRace()
 GET   /activity/test                            @controllers.Activities.runTest()
 
 # Racing
@@ -46,7 +45,5 @@ POST /user/:id/declineRace                     @controllers.Activities.deleteRac
 
 # testing
 GET /league/test                                       @controllers.Application.addTestUser()
-GET /activity/declineRace                              @controllers.Activities.deleteRace()
-
 
 
