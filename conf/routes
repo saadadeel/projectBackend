@@ -26,19 +26,19 @@ GET    /login/submit/:args                       @controllers.Security.newAuthen
 # secTest
 GET     /login/test                             @controllers.Security.test()
 
-# User
-GET     /user/details/:un                       @controllers.Application.userDetails(un)
-GET     /user/minimal/:un                       @controllers.Application.minimalUserDetails(un)
+# Get User Data
+GET     /user/:un                               @controllers.Application.userDetails(un)
+GET     /user/:un/runs                          @controllers.Application.userRuns(un)
+GET     /user/:un/races                         @controllers.Application.userRaces(un)
+GET     /user/:un/races/:raceID                 @controllers.Application.userSingleRace(un, raceID)
+GET     /user/:un/league                        @controllers.Application.userLeague(un)
 
-# Sign in
-POST     /user/signIn                           @controllers.Application.signIn()
+# Post user data
+POST     /user                                  @controllers.Application.signIn()
+POST    /user/:un/run                           @controllers.Activities.recordRun(un)
 
 # Running
-
 GET      /testActivities                        @controllers.Activities.setRace()
-
-POST    /activity/Run                           @controllers.Activities.recordRun()
-
 GET   /activity/test                            @controllers.Activities.runTest()
 
 # Racing
@@ -50,10 +50,6 @@ POST /activity/declineRace                     @controllers.Activities.deleteRac
 # testing
 GET /league/test                                       @controllers.Application.addTestUser()
 GET /activity/declineRace                              @controllers.Activities.deleteRace()
-
-# updating
-POST /refresh                                       @controllers.Application.update()
-GET /refresh                                       @controllers.Application.update()
 
 
 

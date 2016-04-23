@@ -13,6 +13,7 @@ import views.html.*;
 import com.mongodb.MongoClient;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.util.*;
 
@@ -105,6 +106,7 @@ public class Application extends Controller {
                 league.add(mOne);
             }
         }
+
         Collections.sort(league);
         one.setleague(league);
         dbc.getMongo().close();
@@ -265,4 +267,68 @@ public class Application extends Controller {
 //        return user;
 //    }
 
+    @With(ActionAuthenticator.class)
+    public Result userRuns(String uName) throws ParseException, IOException {
+        user one = users.findOne("{'username':'" + uName + "'}").as(user.class);
+
+        if(one!=null){
+            ArrayList<Run> runs = one.getRuns();
+            return ok(Json.toJson(runs));
+        }
+        else{
+            return badRequest("No User Found");
+        }
+    }
+
+    @With(ActionAuthenticator.class)
+    public Result userRaces(String uName) throws ParseException, IOException {
+        user one = users.findOne("{'username':'" + uName + "'}").as(user.class);
+
+        if(one!=null){
+            ArrayList<Races> races = one.getRaces();
+            return ok(Json.toJson(races));
+        }
+        else{
+            return badRequest("No User Found");
+        }
+    }
+
+    @With(ActionAuthenticator.class)
+    public Result userSingleRace(String uName, String raceID) throws ParseException, IOException {
+        user one = users.findOne("{'username':'" + uName + "'}").as(user.class);
+
+        if(one!=null){
+            ArrayList<Races> races = one.getRaces();
+            for(Races race: races){
+                if(race.getId().equals(raceID.trim())){
+                    return ok(Json.toJson(race));
+                }
+            }
+            return badRequest("No Race Found");
+        }
+        else{
+            return badRequest("No User Found");
+        }
+    }
+
+    @With(ActionAuthenticator.class)
+    public Result userLeague(String uName) throws ParseException, IOException {
+        user one = users.findOne("{'username':'" + uName + "'}").as(user.class);
+        Level userLevel = levelCollection.findOne("{'level':" + (one.getUserLevel()) + "}").as(Level.class);
+        ArrayList<minimalUser> league = new ArrayList<minimalUser>();
+
+        if(one!=null){
+            ArrayList<String> leagueUsernames = userLevel.getUsernames();
+            for(String un: leagueUsernames){
+                minimalUser mOne = users.findOne("{'username':'" + un + "'}").as(minimalUser.class);
+                if(mOne!=null){
+                    league.add(mOne);
+                }
+            }
+            return ok(Json.toJson(league));
+        }
+        else{
+            return badRequest("No User Found");
+        }
+    }
 }

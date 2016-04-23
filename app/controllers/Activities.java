@@ -154,7 +154,7 @@ public class Activities extends Controller {
         }
     }
 
-    public Result recordRun(){
+    public Result recordRun(String username){
 //        JsonNode json = request().body().asJson();
 //        if(json == null) {
 //            return badRequest("Expecting Json data");
@@ -183,9 +183,10 @@ public class Activities extends Controller {
             MongoCollection users = jongo.getCollection("users");
 
             Run run= new Gson().fromJson(String.valueOf(json), Run.class);
-            user one = users.findOne("{'username':'" + run.getUsername() + "'}").as(user.class);
+            user one = users.findOne("{'username':'" + username + "'}").as(user.class);
             one.addRun(run);
-            users.update("{'username':'" + run.getUsername()+ "'}").with(one);
+
+            users.update("{'username':'" + username + "'}").with(one);
 
             return ok(Json.toJson("run added"));
         }
