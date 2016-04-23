@@ -29,6 +29,7 @@ GET     /user/:un/runs                          @controllers.Application.userRun
 GET     /user/:un/races                         @controllers.Application.userRaces(un)
 GET     /user/:un/races/:raceID                 @controllers.Application.userSingleRace(un, raceID)
 GET     /user/:un/league                        @controllers.Application.userLeague(un)
+GET     /minimalUser/:un                       @controllers.Application.minimalUserDetails(un)
 
 # Post user data
 POST     /user                                  @controllers.Application.signIn()
@@ -39,10 +40,9 @@ GET      /testActivities                        @controllers.Activities.setRace(
 GET   /activity/test                            @controllers.Activities.runTest()
 
 # Racing
-POST    /activity/acceptRace                    @controllers.Activities.setRace()
-GET   /activity/acceptRace                    @controllers.Activities.setRace()
-POST /activity/completeRace                     @controllers.Activities.racePortionCompleted()
-POST /activity/declineRace                     @controllers.Activities.deleteRace()
+POST  /user/:id/acceptRace                    @controllers.Activities.setRace(id)
+POST /user/:id/completeRace                     @controllers.Activities.racePortionCompleted(id)
+POST /user/:id/declineRace                     @controllers.Activities.deleteRace(id)
 
 # testing
 GET /league/test                                       @controllers.Application.addTestUser()

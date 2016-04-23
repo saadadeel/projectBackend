@@ -57,14 +57,14 @@ public class Activities extends Controller {
         }
     }
 
-    public Result setRace(){
+    public Result setRace(String uName){
         JsonNode json = request().body().asJson();
         if(json == null) {
             return badRequest("Expecting Json data");
         } else {
             String id= json.findPath("id").toString().replace("\"", "");//UUID.randomUUID().toString();
             String compUsername = json.findPath("compUsername").toString().replace("\"", "");//"rTT";
-            String username = json.findPath("username").toString().replace("\"", "");//"rT14";
+            String username = uName;//"rT14";
 
             user one = users.findOne("{'username':'" + username + "'}").as(user.class);
             user two = users.findOne("{'username':'" + compUsername+ "'}").as(user.class);
@@ -94,14 +94,14 @@ public class Activities extends Controller {
         }
     }
 
-    public Result deleteRace(){
+    public Result deleteRace(String uName){
         JsonNode json = request().body().asJson();
         if(json == null) {
             return badRequest("Expecting Json data");
         } else {
             String id= json.findPath("id").toString().replace("\"", "");//UUID.randomUUID().toString();
             String compUsername = json.findPath("compUsername").toString().replace("\"", "");//"rTT";
-            String username = json.findPath("username").toString().replace("\"", "");//"rT14";
+            String username = uName;//json.findPath("username").toString().replace("\"", "");//"rT14";
 
             user one = users.findOne("{'username':'" + username + "'}").as(user.class);
             one.deleteRace(id);
@@ -115,7 +115,7 @@ public class Activities extends Controller {
         }
     }
 
-    public Result racePortionCompleted(){
+    public Result racePortionCompleted(String uName){
         JsonNode json = request().body().asJson();
         if(json == null) {
             return badRequest("Expecting Json data");
@@ -131,7 +131,7 @@ public class Activities extends Controller {
                 }
             }
             if(compRace!=null){
-                u = users.findOne("{'username':'" + compRace.competitorUsername + "'}").as(user.class);
+                u = users.findOne("{'username':'" + uName + "'}").as(user.class);
                 u.updateRaces(race);
             }else{
                 return ok(Json.toJson("no race"));
