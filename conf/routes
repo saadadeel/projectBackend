@@ -19,7 +19,7 @@ GET     /serverTest                             @controllers.Application.serverT
 GET     /runTest                                @controllers.Activities.runTest()
 
 # User requests Authentication and Authorization to access the information of the user
-GET    /login/:args                             @controllers.Security.Authenticate(args)
+GET    /login/:args                             @controllers.Application.Authenticate(args)
 POST   /user/changePassword                     @controllers.Application.changePassword()
 
 # Get User Data

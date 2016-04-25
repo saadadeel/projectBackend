@@ -56,16 +56,6 @@ public class Application extends Controller {
     }
 
     public Result serverTest() throws ParseException, IOException {
-
-//        DB dbc = new MongoClient("178.62.68.172", 27017).getDB("competifitDB");
-//        Jongo jongo = new Jongo(dbc);
-//
-//        MongoCollection users = jongo.getCollection("users");
-//        //user one = users.findOne("{'First Name': 'Saad'}").as(user.class);
-//        user tester = new user("Adam", "aDriver", "Driver", "password");
-//
-//        users.save(tester);
-//
         return ok();
     }
 
@@ -155,40 +145,6 @@ public class Application extends Controller {
         }
     }
 
-    public Result addTestUser() {
-        ArrayList<String> names = new ArrayList<String>();
-        names.add("steve");
-        names.add("chris");
-        names.add("michael");
-        names.add("daniel");
-        names.add("henry");
-        names.add("usainBolt");
-        names.add("thom");
-        names.add("jonny");
-        names.add("ed");
-        names.add("phil");
-        names.add("colin");
-        names.add("chiara");
-        names.add("runner");
-        names.add("compete");
-
-
-//        Level l = new Level(4);
-//        levelCollection.save(l);
-//
-//            for (int i = 0; i < names.size(); i++) {
-//                user u = new user("firstName", names.get(i) + 4, "lastName", "password");
-//                Run run = new Run(4000.0, 2.778, u.getUsername());
-//                u.addRun(run);
-//
-//                Level level = levelCollection.findOne("{'level':4}").as(Level.class);
-//                level.addUsername(u.getUsername());
-//                levelCollection.update("{'level':4}").with(level);
-//            }
-
-        return ok(Json.toJson(levelCollection.findOne("{'level':1}").as(Level.class)));
-    }
-
     @With(ActionAuthenticator.class)
     public Result userRuns(String uName) throws ParseException, IOException {
         user one = users.findOne("{'username':'" + uName + "'}").as(user.class);
@@ -272,6 +228,23 @@ public class Application extends Controller {
             return ok();
         } else {
             return badRequest("No User Found");
+        }
+    }
+
+    public Result Authenticate(String args){
+
+        String[] params = args.split(":");
+        String username = params[0].replace("\"","");
+        String password = params[1].replace("\"","");
+
+        user one = users.findOne("{'username':'" + username + "'}").as(user.class);
+
+        password = password.replaceAll("^\"|\"$", "");
+
+        if(one.getPassword().equals(password)) {
+            return ok();
+        } else {
+            return badRequest("no match");
         }
     }
 }

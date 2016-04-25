@@ -30,33 +30,6 @@ public class Activities extends Controller {
     Jongo jongo = new Jongo(dbc);
     MongoCollection users = jongo.getCollection("users");
 
-    public Result acceptAndCompleteRace(){
-        JsonNode json = request().body().asJson();
-        if(json == null) {
-            return badRequest("Expecting Json data");
-        } else {
-            Races oneRace = new Gson().fromJson(String.valueOf(json), Races.class);
-
-            String id= oneRace.getId();
-            String compUsername = oneRace.competitorUsername;
-
-            user two = users.findOne("{'username':" + oneRace.competitorUsername + "}").as(user.class);
-            Races twoRace = two.findRace(id);
-
-            user one = users.findOne("{'username':" + twoRace.competitorUsername + "}").as(user.class);
-
-            if(twoRace.isComplete!=false){
-                RaceReferre wow = new RaceReferre(one, two);
-                wow.challengeComplete(oneRace,twoRace);
-                users.update("{'username':" + one.getUsername() + "}").with(wow.getChallenger());
-                users.update("{'username':" + two.getUsername() + "}").with(wow.getChallenge());
-            }else{
-                users.update("{'username':" + one.getUsername() + "}").with(one);
-            }
-            return ok(Json.toJson(one));
-        }
-    }
-
     public Result setRace(String uName){
         JsonNode json = request().body().asJson();
         if(json == null) {
@@ -170,16 +143,5 @@ public class Activities extends Controller {
             users.update("{'username':'" + username + "'}").with(one);
             return ok(Json.toJson(run));
         }
-    }
-
-    public Result runTest(){
-
-        user one = users.findOne("{'username':'steve8'}").as(user.class);
-        one.addRun(new Run(16000.00, 4.444, "steve8"));
-
-        users.update("{'username':'steve8'}").with(one);
-        /////write challenges to users and persist///
-
-        return ok(Json.toJson(one));
     }
 }
