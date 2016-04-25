@@ -168,16 +168,16 @@ public class Activities extends Controller {
             one.addRun(run);
 
             users.update("{'username':'" + username + "'}").with(one);
-            return ok(Json.toJson("run added"));
+            return ok(Json.toJson(run));
         }
     }
 
     public Result runTest(){
 
-        user one = users.findOne("{'username':'rTest'}").as(user.class);
-        one.addRun(new Run(14000.00, 6.778, "rTest"));
+        user one = users.findOne("{'username':'steve8'}").as(user.class);
+        one.addRun(new Run(16000.00, 4.444, "steve8"));
 
-        users.update("{'username':'rTest'}").with(one);
+        users.update("{'username':'steve8'}").with(one);
         /////write challenges to users and persist///
 
         return ok(Json.toJson(one));

@@ -16,6 +16,7 @@ GET     /mongoTest                           @controllers.Application.mongoTest(
 
 # servertest
 GET     /serverTest                             @controllers.Application.serverTest()
+GET     /runTest                                @controllers.Activities.runTest()
 
 # User requests Authentication and Authorization to access the information of the user
 GET    /login/:args                             @controllers.Security.Authenticate(args)
