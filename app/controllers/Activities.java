@@ -73,6 +73,7 @@ public class Activities extends Controller {
             referre.setChallenge();
 
             Races challenged = new Races(id, username, "recieved");
+
             challenged.setChallengedDist(referre.getChallengedMiles());
             challenged.setChallengedSpeed(referre.getChallengedSpeed());
             challenged.setPoints(referre.getChallengedPoints());
@@ -123,19 +124,21 @@ public class Activities extends Controller {
             Races race= new Gson().fromJson(String.valueOf(json), Races.class);
             Races compRace = null;
             user u = null;
-            user competitor = users.findOne("{'username':'" + race.competitorUsername + "'}").as(user.class);
 
+            user competitor = users.findOne("{'username':'" + race.competitorUsername + "'}").as(user.class);
             for(Races r: competitor.races){
                 if(r.id.equals(race.getId())){
                     compRace = r;
                 }
             }
+
             if(compRace!=null){
-                u = users.findOne("{'username':'" + uName + "'}").as(user.class);
+                u =  users.findOne("{'username':'" + uName + "'}").as(user.class);
                 u.updateRaces(race);
             }else{
                 return ok(Json.toJson("no race"));
             }
+
             if(compRace.isComplete){
                 RaceReferre referre = new RaceReferre(u, competitor);
                 referre.challengeComplete(race,compRace);
@@ -155,39 +158,16 @@ public class Activities extends Controller {
     }
 
     public Result recordRun(String username){
-//        JsonNode json = request().body().asJson();
-//        if(json == null) {
-//            return badRequest("Expecting Json data");
-//        } else {
-//            String username = json.findPath("username").toString();
-//            int distance = json.findPath("distance").asInt();
-//            int time = json.findPath("time").asInt();
-//
-//            user one = users.findOne("{'username':" +] username + "}").as(user.class);
-//            Run run = new Run(distance, time);
-//            one.addRun(run);
-//            run.setScore(one);
-//            one.updateScore();
-//
-//            one.addRun(run);
-//            users.update("{'username':" + username + "}").with(one);
-
-            /////write challenges to users and persist///
-
         JsonNode json = request().body().asJson();
         if(json == null) {
             return ok("Expecting Json data");
         } else {
-            DB dbc = new MongoClient("178.62.68.172", 27017).getDB("competifitDB");
-            Jongo jongo = new Jongo(dbc);
-            MongoCollection users = jongo.getCollection("users");
 
-            Run run= new Gson().fromJson(String.valueOf(json), Run.class);
             user one = users.findOne("{'username':'" + username + "'}").as(user.class);
+            Run run= new Gson().fromJson(String.valueOf(json), Run.class);
             one.addRun(run);
 
             users.update("{'username':'" + username + "'}").with(one);
-
             return ok(Json.toJson("run added"));
         }
     }

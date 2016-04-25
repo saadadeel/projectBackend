@@ -18,10 +18,8 @@ GET     /mongoTest                           @controllers.Application.mongoTest(
 GET     /serverTest                             @controllers.Application.serverTest()
 
 # User requests Authentication and Authorization to access the information of the user
-POST    /login/submit                            @controllers.Security.Authenticate()
-
-# User requests Authentication and Authorization to access the information of the user
-GET    /login/:args                             @controllers.Security.newAuthenticate(args)
+GET    /login/:args                             @controllers.Security.Authenticate(args)
+POST   /user/changePassword                     @controllers.Application.changePassword()
 
 # Get User Data
 GET     /user/:un                               @controllers.Application.userDetails(un)
@@ -29,21 +27,15 @@ GET     /user/:un/runs                          @controllers.Application.userRun
 GET     /user/:un/races                         @controllers.Application.userRaces(un)
 GET     /user/:un/races/:raceID                 @controllers.Application.userSingleRace(un, raceID)
 GET     /user/:un/league                        @controllers.Application.userLeague(un)
-GET     /minimalUser/:un                       @controllers.Application.minimalUserDetails(un)
+GET     /minimalUser/:un                        @controllers.Application.minimalUserDetails(un)
 
 # Post user data
 POST     /user                                  @controllers.Application.signIn()
 POST    /user/:un/run                           @controllers.Activities.recordRun(un)
 
-# Running
-GET   /activity/test                            @controllers.Activities.runTest()
-
 # Racing
 POST  /user/:id/acceptRace                    @controllers.Activities.setRace(id)
 POST /user/:id/completeRace                     @controllers.Activities.racePortionCompleted(id)
 POST /user/:id/declineRace                     @controllers.Activities.deleteRace(id)
-
-# testing
-GET /league/test                                       @controllers.Application.addTestUser()
 
 

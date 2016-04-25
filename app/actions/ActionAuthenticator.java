@@ -49,12 +49,6 @@ public class ActionAuthenticator extends Action.Simple {
         }
 
         return credString[1];
-
-//        String[] authTokenHeaderValues = ctx.request().headers().get("X-AUTH-TOKEN");
-//        if ((authTokenHeaderValues != null) && (authTokenHeaderValues.length == 1) && (authTokenHeaderValues[0] != null)) {
-//            return authTokenHeaderValues[0];
-//        }
-//        return null;
     }
 
     private String username(Http.Context ctx) throws IOException {
@@ -73,11 +67,5 @@ public class ActionAuthenticator extends Action.Simple {
         }
 
         return credString[0];
-
-//        String[] authTokenHeaderValues = ctx.request().headers().get("username");
-//        if ((authTokenHeaderValues != null) && (authTokenHeaderValues.length == 1) && (authTokenHeaderValues[0] != null)) {
-//            return authTokenHeaderValues[0];
-//        }
-//        return null;
     }
 }

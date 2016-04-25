@@ -26,10 +26,12 @@ import static com.mongodb.client.model.Sorts.ascending;
 
 
 public class Application extends Controller {
+
     DB dbc = new MongoClient("178.62.68.172", 27017).getDB("competifitDB");
     Jongo jongo = new Jongo(dbc);
     MongoCollection users = jongo.getCollection("users");
     MongoCollection levelCollection = jongo.getCollection("userByLevel");
+
     Timer timer = new Timer();
     boolean gotUser = false;
 
@@ -74,7 +76,6 @@ public class Application extends Controller {
         ArrayList<minimalUser> league = new ArrayList<minimalUser>();
         boolean isDuplicate = false;
 
-        MongoCollection users = jongo.getCollection("users");
         user one = users.findOne("{'username':'" + uName + "'}").as(user.class);
         Level level = levelCollection.findOne("{'level':" + one.getUserLevel() + "}").as(Level.class);
         Level oldLevel = levelCollection.findOne("{'level':" + one.oldUserLevel + "}").as(Level.class);
@@ -141,13 +142,15 @@ public class Application extends Controller {
 
             user one = users.findOne("{'username':'" + u.getUsername() + "'}").as(user.class);
             if(one==null){
+
                 Level level = levelCollection.findOne("{'level':" + u.getUserLevel() + "}").as(Level.class);
                 level.addUsername(u.getUsername());
                 levelCollection.update("{'level':" + u.getUserLevel()+ "}").with(level);
                 users.save(u);
                 return ok(Json.toJson(u));
+
             }else{
-                return ok("user exists");
+                return badRequest("user exists");
             }
         }
     }
@@ -186,87 +189,6 @@ public class Application extends Controller {
         return ok(Json.toJson(levelCollection.findOne("{'level':1}").as(Level.class)));
     }
 
-    public Result update(){
-//        ArrayList<String> leagueUsernames = new ArrayList<String>();
-//        ArrayList<minimalUser> league = new ArrayList<minimalUser>();
-//        JsonNode json = request().body().asJson();
-//        if(json == null) {
-//            return badRequest("Expecting Json data");
-//        } else {
-//            user dataFromClient = new Gson().fromJson(String.valueOf(json), user.class);
-//            user one = users.findOne("{'username':'" + dataFromClient.getUsername() + "'}").as(user.class);
-//
-//           ArrayList<Run> runData = dataFromClient.getRuns();
-//            ArrayList<Races> races = dataFromClient.getRaces();
-//
-//            users.update("{'username':'" + one.getUsername() + "'}").with(one);
-//            for(Races race : races){
-//                if(race.isComplete){
-//                    one.addRace(race);
-//                    users.update("{'username':'" + one.getUsername() + "'}").with(one);
-//                }
-//            }
-//            leagueUsernames = one.getLeagueUsernames();
-//            for(String un: leagueUsernames){
-//                minimalUser mOne = users.findOne("{'username':'" + un + "'}").as(minimalUser.class);
-//                league.add(mOne);
-//            }
-//            Collections.sort(league);
-//            one.setleague(league);
-//
-//            return ok(Json.toJson(one));
-//        }
-        return ok("hello");
-    }
-
-//   public Result socket(String uName) {
-//
-//       user oldUser = getUser(uName);
-//
-//       TimerTask secondCounter = new TimerTask() {
-//           @Override
-//           public void run() {
-//               user user = getUser(uName);
-//                if(user.getRaces() == oldUser.getRaces() && user.getLeague() == oldUser.getLeague()){
-//                    System.out.println("HELLOOOO");
-//                }else{
-//                    System.out.println("WHATTT");
-//                    gotUser = true;
-//                }
-//
-//           }
-//       };
-//       timer.scheduleAtFixedRate(secondCounter, 10 * 1000, 10 * 1000);
-//
-//       return ok(Json.toJson(getUser(uName)));
-//   }
-//
-//    public user getUser(String uName){
-//        ArrayList<String> leagueUsernames = new ArrayList<String>();
-//        ArrayList<minimalUser> league = new ArrayList<minimalUser>();
-//
-//        user user = new user();
-//        user oldUser = new user();
-//
-//        boolean isDuplicate = false;
-//
-//        MongoCollection users = jongo.getCollection("users");
-//        user = users.findOne("{'username':'" + uName + "'}").as(user.class);
-//
-//        Level userLevel = levelCollection.findOne("{'level':" + (user.getUserLevel()) + "}").as(Level.class);
-//        leagueUsernames = userLevel.getUsernames();
-//
-//        for(String un: leagueUsernames){
-//            minimalUser mOne = users.findOne("{'username':'" + un + "'}").as(minimalUser.class);
-//            if(mOne!=null){
-//                league.add(mOne);
-//            }
-//        }
-//        Collections.sort(league);
-//        user.setleague(league);
-//        return user;
-//    }
-
     @With(ActionAuthenticator.class)
     public Result userRuns(String uName) throws ParseException, IOException {
         user one = users.findOne("{'username':'" + uName + "'}").as(user.class);
@@ -296,7 +218,6 @@ public class Application extends Controller {
     @With(ActionAuthenticator.class)
     public Result userSingleRace(String uName, String raceID) throws ParseException, IOException {
         user one = users.findOne("{'username':'" + uName + "'}").as(user.class);
-
         if(one!=null){
             ArrayList<Races> races = one.getRaces();
             for(Races race: races){
@@ -328,6 +249,28 @@ public class Application extends Controller {
             return ok(Json.toJson(league));
         }
         else{
+            return badRequest("No User Found");
+        }
+    }
+
+    public Result changePassword() {
+        JsonNode json = request().body().asJson();
+        String username = "";
+        String newPassword = "";
+
+        if (json == null) {
+            return badRequest("Expecting Json data");
+        } else {
+            username = json.findPath("username").toString().replace("\"", "");
+            newPassword = json.findPath("password").toString().replace("\"", "");
+        }
+
+        user one = users.findOne("{'username':'" + username + "'}").as(user.class);
+        if (one != null) {
+            one.password = newPassword;
+            users.update("{'username':'" + username + "'}").with(one);
+            return ok();
+        } else {
             return badRequest("No User Found");
         }
     }

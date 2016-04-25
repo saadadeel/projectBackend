@@ -22,7 +22,7 @@ public class user{
 
     @JsonProperty("races")
     public ArrayList<Races> races = new ArrayList<Races>();
-    
+
     @JsonProperty("runs")
     public ArrayList<Run> runs = new ArrayList<Run>();
     public ArrayList<minimalUser> league = new ArrayList<minimalUser>();
@@ -91,6 +91,7 @@ public class user{
     /////Runs////////
 
     public ArrayList<Run> getRuns(){return this.runs;}
+    
     public void addRun(Run r){
         this.runs.add(0, r);
         r.setScore(this);
