@@ -63,8 +63,12 @@ public class Run {
         ArrayList<Double> dist = new ArrayList<Double>();
         ArrayList<Double> speed = new ArrayList<Double>();
 
-        setBasicPoints(user);
-        setBonusPoints(userRuns);
+        if(this.getDistance()<10 || this.getSpeed()<1/3.6){
+            this.score = 0;
+        }else{
+            setBasicPoints(user);
+            setBonusPoints(userRuns);
+        }
     }
 
     private void setBasicPoints(user user){
